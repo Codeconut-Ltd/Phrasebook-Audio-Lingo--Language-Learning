@@ -58,7 +58,7 @@ function Library() {
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   return (
-    <AppShell>
+    <AppShell width="wide">
       <div className="flex flex-col gap-6">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
           <div className="min-w-0">
@@ -101,13 +101,13 @@ function Library() {
           ) : null}
         </div>
         {isError ? <Text tone="accent">Could not load phrases.</Text> : null}
-        <Table aria-label="All phrases">
+        <Table aria-label="All phrases" className="min-w-max">
           <TableHead>
             <TableRow>
               <TableHeaderCell><span className="sr-only">Play</span></TableHeaderCell>
               <TableHeaderCell>Phrase</TableHeaderCell>
               <TableHeaderCell>Translation</TableHeaderCell>
-              <TableHeaderCell>Lang</TableHeaderCell>
+              <TableHeaderCell className="whitespace-nowrap">Lang</TableHeaderCell>
               <TableHeaderCell>Status</TableHeaderCell>
               <TableHeaderCell>Correct</TableHeaderCell>
               <TableHeaderCell><span className="sr-only">Actions</span></TableHeaderCell>

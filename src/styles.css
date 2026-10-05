@@ -5,13 +5,20 @@
 /* App-owned accessibility corrections for the attached theme. */
 :root {
   --color-accent-foreground: var(--color-cc-ink);
+  --color-primary-foreground: var(--color-cc-paper);
 }
 
 [data-theme="dark"] {
+  --color-primary-foreground: var(--color-cc-ink);
   --color-secondary: var(--color-cc-sand);
   --color-secondary-hover: var(--color-cc-warm-grey);
   --color-secondary-foreground: var(--color-cc-ink);
   --color-on-status: var(--color-cc-neutral-100);
+}
+
+button:disabled:disabled {
+  cursor: not-allowed;
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

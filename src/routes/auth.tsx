@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Alert, Button, Card, CardDescription, CardTitle, Container, Field, Input, Logo, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Alert, Button, Card, CardDescription, CardTitle, Container, Field, Input, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/auth")({
@@ -50,10 +50,7 @@ function AuthPage() {
       <Container width="narrow">
         <Card variant="raised" padding="lg" className="mx-auto max-w-md bg-background">
           <div className="flex flex-col items-center text-center">
-            <div className="flex items-center gap-2">
-              <Logo variant="symbol" size="md" />
-              <Text as="span" size="lead" weight="semibold">Phrasebook</Text>
-            </div>
+            <Text as="span" size="lead" weight="semibold">Phrasebook</Text>
             <CardTitle className="mt-6">{mode === "signin" ? "Welcome back" : "Create your account"}</CardTitle>
             <CardDescription className="mt-2">Learn phrases by ear, in any language.</CardDescription>
           </div>
