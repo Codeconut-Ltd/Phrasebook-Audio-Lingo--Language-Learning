@@ -10,3 +10,4 @@
 - [x] Validate desktop/mobile, themes, interactions, and build output
 - [x] Fix screenshot-reported spacing, contrast, table wrapping, and completion bar issues
 - [x] Remove the Codeconut logo from all app screens
+- [x] Complete design-system font wiring and remove the unused Tailwind token export
