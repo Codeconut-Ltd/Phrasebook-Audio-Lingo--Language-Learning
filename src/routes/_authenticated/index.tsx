@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Button, Card, Field, Heading, Input, Text, Textarea } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Button, Field, Heading, Input, Text, Textarea } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
 import { AppShell } from "@/components/AppShell";
 import { LanguageInput } from "@/components/LanguageInput";
 import { addPhrase } from "@/lib/phrases.functions";

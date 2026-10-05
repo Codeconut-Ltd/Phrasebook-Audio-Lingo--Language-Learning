@@ -1,6 +1,6 @@
 import { Suspense, useState, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button, Container, Logo, Text, textLinkVariants, useTheme } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
 import { supabase } from "@/integrations/supabase/client";
 import { GearIcon, MoonIcon, SunIcon } from "./Icons";
