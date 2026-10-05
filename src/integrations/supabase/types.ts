@@ -14,16 +14,115 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      phrases: {
+        Row: {
+          audio_path: string | null
+          created_at: string
+          id: string
+          language_code: string
+          last_reviewed_at: string | null
+          status: Database["public"]["Enums"]["phrase_status"]
+          text: string
+          times_correct: number
+          times_reviewed: number
+          translation: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          audio_path?: string | null
+          created_at?: string
+          id?: string
+          language_code: string
+          last_reviewed_at?: string | null
+          status?: Database["public"]["Enums"]["phrase_status"]
+          text: string
+          times_correct?: number
+          times_reviewed?: number
+          translation?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          audio_path?: string | null
+          created_at?: string
+          id?: string
+          language_code?: string
+          last_reviewed_at?: string | null
+          status?: Database["public"]["Enums"]["phrase_status"]
+          text?: string
+          times_correct?: number
+          times_reviewed?: number
+          translation?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+          output_language: string
+          round_size: number
+          theme: string
+          updated_at: string
+          voice: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id: string
+          output_language?: string
+          round_size?: number
+          theme?: string
+          updated_at?: string
+          voice?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          output_language?: string
+          round_size?: number
+          theme?: string
+          updated_at?: string
+          voice?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      pick_round: {
+        Args: { _n: number }
+        Returns: {
+          audio_path: string | null
+          created_at: string
+          id: string
+          language_code: string
+          last_reviewed_at: string | null
+          status: Database["public"]["Enums"]["phrase_status"]
+          text: string
+          times_correct: number
+          times_reviewed: number
+          translation: string | null
+          updated_at: string
+          user_id: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "phrases"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
     }
     Enums: {
-      [_ in never]: never
+      phrase_status: "learning" | "learned"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +249,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      phrase_status: ["learning", "learned"],
+    },
   },
 } as const
