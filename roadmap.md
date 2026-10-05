@@ -8,5 +8,5 @@
 - [x] Enable native view transitions
 - [x] Apply the selected Editorial SaaS UI refinement
 - [x] Validate desktop/mobile, themes, interactions, and build output
-- [ ] Fix screenshot-reported spacing, contrast, table wrapping, and completion bar issues
-- [ ] Remove the Codeconut logo from the app header
+- [x] Fix screenshot-reported spacing, contrast, table wrapping, and completion bar issues
+- [x] Remove the Codeconut logo from all app screens
