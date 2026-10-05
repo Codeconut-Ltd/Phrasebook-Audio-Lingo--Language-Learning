@@ -93,7 +93,7 @@ function Review() {
           <div className="fixed inset-x-0 bottom-0 z-10 border-t border-border bg-background shadow-overlay" aria-live="polite">
             <div className="mx-auto grid max-w-3xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-3 md:px-8">
               <div className="min-w-0">
-                <Text weight="semibold">Round complete</Text>
+                <Heading level={2}>Round complete</Heading>
                 <Text size="small" tone="muted">{memorized} of {phrases.length} memorized</Text>
               </div>
               <div className="shrink-0">

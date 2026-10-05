@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Alert, Button, Card, CardDescription, CardTitle, Container, Field, Input, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Alert, Button, Card, CardDescription, Container, Field, Heading, Input, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/auth")({
@@ -11,8 +11,10 @@ export const Route = createFileRoute("/auth")({
       { property: "og:title", content: "Sign in — Phrasebook" },
       { property: "og:description", content: "Sign in to your Phrasebook to practise phrases by ear." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://audio-lingo-flash.lovable.app/auth" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://audio-lingo-flash.lovable.app/auth" }],
   }),
   component: AuthPage,
 });
@@ -51,7 +53,7 @@ function AuthPage() {
         <Card variant="raised" padding="lg" className="mx-auto max-w-md bg-background">
           <div className="flex flex-col items-center text-center">
             <Text as="span" size="lead" weight="semibold">Phrasebook</Text>
-            <CardTitle className="mt-6">{mode === "signin" ? "Welcome back" : "Create your account"}</CardTitle>
+            <Heading level={1} className="mt-6">{mode === "signin" ? "Welcome back" : "Create your account"}</Heading>
             <CardDescription className="mt-2">Learn phrases by ear, in any language.</CardDescription>
           </div>
           <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
