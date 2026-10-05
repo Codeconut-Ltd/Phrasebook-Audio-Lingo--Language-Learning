@@ -7,6 +7,7 @@ import { LibraryRow } from "@/components/LibraryRow";
 import { listSchema, PAGE_SIZE } from "@/lib/phrases.functions";
 import { libraryQuery, statsQuery } from "@/lib/queries";
 import { languageName } from "@/lib/languages";
+import { ResetIcon } from "@/components/Icons";
 
 const searchSchema = listSchema.extend({
   page: listSchema.shape.page.catch(1),
@@ -41,6 +42,11 @@ function Library() {
   const { data, isFetching, isError } = useQuery({ ...libraryQuery(search), placeholderData: keepPreviousData });
   const [q, setQ] = useState(search.q);
   const set = (patch: Partial<typeof search>) => navigate({ search: (s) => ({ ...s, ...patch, page: patch.page ?? 1 }) });
+  const filtersActive = search.q !== "" || search.status !== "all" || search.lang !== "" || search.sort !== "created_desc";
+  const resetFilters = () => {
+    setQ("");
+    navigate({ search: { page: 1, status: "all", lang: "", q: "", sort: "created_desc" } });
+  };
 
   useEffect(() => {
     if (q === search.q) return;
@@ -54,11 +60,14 @@ function Library() {
   return (
     <AppShell>
       <div className="flex flex-col gap-6">
-        <div className="flex flex-wrap items-baseline justify-between gap-4">
-          <Heading level={1}>Library</Heading>
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
+          <div className="min-w-0">
+            <Text size="small" tone="muted" weight="semibold">YOUR PHRASES</Text>
+            <Heading level={1}>Library</Heading>
+          </div>
           <Text tone="muted" aria-live="polite">{isFetching ? "Loading…" : `${total} phrases`}</Text>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid items-end gap-4 border-y border-border py-4 sm:grid-cols-2 lg:grid-cols-4">
           <Field htmlFor="f-q" label="Search">
             <Input id="f-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Text or translation" />
           </Field>
@@ -85,6 +94,11 @@ function Library() {
               <option value="reviewed_desc">Recently reviewed</option>
             </Select>
           </Field>
+          {filtersActive ? (
+            <div className="sm:col-span-2 lg:col-span-4">
+              <Button variant="ghost" size="sm" onClick={resetFilters}><ResetIcon />Reset filters</Button>
+            </div>
+          ) : null}
         </div>
         {isError ? <Text tone="accent">Could not load phrases.</Text> : null}
         <Table aria-label="All phrases">

@@ -63,9 +63,11 @@ function Home() {
 
   return (
     <AppShell>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-12">
         <section aria-labelledby="add-h" className="flex flex-col gap-4">
+          <Text size="small" tone="muted" weight="semibold">YOUR WORKSPACE</Text>
           <Heading level={1} id="add-h">What do you want to learn?</Heading>
+          <Text tone="muted">Add a phrase, then practise it by listening and recalling.</Text>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -104,7 +106,7 @@ function Home() {
           </form>
         </section>
 
-        <Card variant="filled" padding="lg">
+        <div className="border-y border-border bg-surface py-6">
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div className="flex gap-10">
               <Stat value={stats.learned} label="Learned" />
@@ -124,7 +126,7 @@ function Home() {
               <Button type="submit" variant="accent" size="md" disabled={stats.total === 0}>Start round</Button>
             </form>
           </div>
-        </Card>
+        </div>
       </div>
     </AppShell>
   );
