@@ -86,7 +86,7 @@ function Home() {
                   if (canAdd) mutation.mutate();
                 }
               }}
-              className="font-serif text-h3"
+              className="text-h3"
             />
             <div className="grid gap-4 sm:grid-cols-3">
               <Field htmlFor="new-lang" label="Language" error={langValid ? undefined : "e.g. th-TH"}>

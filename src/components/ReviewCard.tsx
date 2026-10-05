@@ -42,7 +42,7 @@ export function ReviewCard({ phrase, index, result, onResult }: Props) {
           value={text}
           invalid={!text.trim()}
           onChange={(e) => setText(e.target.value)}
-          className="font-serif text-h3"
+          className="text-h3"
         />
       </div>
       <div className="mt-4">
