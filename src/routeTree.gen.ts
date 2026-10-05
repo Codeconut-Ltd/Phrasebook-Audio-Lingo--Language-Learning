@@ -9,21 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
-import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
 import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticated/library'
-import { Route as Char91__mockupChar93PreviewSplatRouteImport } from './routes/[__mockup].preview.$'
+import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
 import { Route as Char91__componentChar93PreviewSplatRouteImport } from './routes/[__component].preview.$'
+import { Route as Char91__mockupChar93PreviewSplatRouteImport } from './routes/[__mockup].preview.$'
 
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
@@ -31,26 +31,26 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedReviewRoute = AuthenticatedReviewRouteImport.update({
-  id: '/review',
-  path: '/review',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedLibraryRoute = AuthenticatedLibraryRouteImport.update({
   id: '/library',
   path: '/library',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const Char91__mockupChar93PreviewSplatRoute =
-  Char91__mockupChar93PreviewSplatRouteImport.update({
-    id: '/__mockup/preview/$',
-    path: '/__mockup/preview/$',
-    getParentRoute: () => rootRouteImport,
-  } as any)
+const AuthenticatedReviewRoute = AuthenticatedReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const Char91__componentChar93PreviewSplatRoute =
   Char91__componentChar93PreviewSplatRouteImport.update({
     id: '/__component/preview/$',
     path: '/__component/preview/$',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91__mockupChar93PreviewSplatRoute =
+  Char91__mockupChar93PreviewSplatRouteImport.update({
+    id: '/__mockup/preview/$',
+    path: '/__mockup/preview/$',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -117,18 +117,18 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/': {
@@ -138,13 +138,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/review': {
-      id: '/_authenticated/review'
-      path: '/review'
-      fullPath: '/review'
-      preLoaderRoute: typeof AuthenticatedReviewRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/library': {
       id: '/_authenticated/library'
       path: '/library'
@@ -152,18 +145,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLibraryRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/__mockup/preview/$': {
-      id: '/__mockup/preview/$'
-      path: '/__mockup/preview/$'
-      fullPath: '/__mockup/preview/$'
-      preLoaderRoute: typeof Char91__mockupChar93PreviewSplatRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_authenticated/review': {
+      id: '/_authenticated/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof AuthenticatedReviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/__component/preview/$': {
       id: '/__component/preview/$'
       path: '/__component/preview/$'
       fullPath: '/__component/preview/$'
       preLoaderRoute: typeof Char91__componentChar93PreviewSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/__mockup/preview/$': {
+      id: '/__mockup/preview/$'
+      path: '/__mockup/preview/$'
+      fullPath: '/__mockup/preview/$'
+      preLoaderRoute: typeof Char91__mockupChar93PreviewSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -196,10 +196,11 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 
 import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { startInstance } from './start.ts'
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true
     router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
   }
 }
