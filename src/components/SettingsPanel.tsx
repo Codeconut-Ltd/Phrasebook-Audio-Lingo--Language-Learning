@@ -17,6 +17,7 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
   const [round, setRound] = useState(String(profile.round_size));
   const [voice, setVoice] = useState(profile.voice);
   const [theme, setThemeChoice] = useState(profile.theme);
+  const [saved, setSaved] = useState(false);
   const langValid = LANGUAGE_CODE_PATTERN.test(lang.trim());
   const roundNum = Number(round);
   const roundValid = Number.isInteger(roundNum) && roundNum >= 1 && roundNum <= 20;
@@ -34,18 +35,24 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
     onSuccess: async () => {
       setTheme(resolveTheme(theme));
       await qc.invalidateQueries({ queryKey: ["profile"] });
-      onClose();
+      setSaved(true);
     },
   });
 
   return (
     <Card variant="raised" padding="md" role="dialog" aria-label="Settings">
-      <CardTitle>Settings</CardTitle>
+      <div className="flex items-center justify-between gap-4">
+        <CardTitle>Settings</CardTitle>
+        <Button variant="ghost" size="sm" onClick={onClose}>Close</Button>
+      </div>
       <form
         className="mt-4 grid gap-4 sm:grid-cols-2"
         onSubmit={(e) => {
           e.preventDefault();
-          if (langValid && roundValid) mutation.mutate();
+          if (langValid && roundValid) {
+            setSaved(false);
+            mutation.mutate();
+          }
         }}
       >
         <Field htmlFor="set-lang" label="Output language" hint="Default for new phrases, e.g. th-TH" error={langValid ? undefined : "Enter a language code like th-TH"}>
@@ -71,6 +78,7 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
         <div className="flex items-center gap-3 sm:col-span-2">
           <Button type="submit" loading={mutation.isPending} disabled={!langValid || !roundValid}>Save</Button>
           <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          {saved ? <Text size="small" tone="muted" aria-live="polite">Settings saved.</Text> : null}
           {mutation.isError ? <Text size="small" tone="accent">Could not save settings.</Text> : null}
         </div>
       </form>

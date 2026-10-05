@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Alert, Button, Card, CardDescription, CardTitle, Container, Field, Input, Logo } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Alert, Button, Card, CardDescription, CardTitle, Container, Field, Input, Logo, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/auth")({
@@ -46,21 +46,26 @@ function AuthPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center bg-background">
+    <main className="flex min-h-screen items-center bg-surface py-8">
       <Container width="narrow">
-        <Card variant="raised" padding="lg">
-          <Logo variant="symbol" size="md" />
-          <CardTitle className="mt-4">{mode === "signin" ? "Sign in" : "Create account"}</CardTitle>
-          <CardDescription>Learn phrases by ear, in any language.</CardDescription>
+        <Card variant="raised" padding="lg" className="mx-auto max-w-md bg-background">
+          <div className="flex flex-col items-center text-center">
+            <div className="flex items-center gap-2">
+              <Logo variant="symbol" size="md" />
+              <Text as="span" size="lead" weight="semibold">Phrasebook</Text>
+            </div>
+            <CardTitle className="mt-6">{mode === "signin" ? "Welcome back" : "Create your account"}</CardTitle>
+            <CardDescription className="mt-2">Learn phrases by ear, in any language.</CardDescription>
+          </div>
           <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
-            <Field htmlFor="email" label="Email" required>
-              <Input id="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Field htmlFor="email" label="Email address" required>
+              <Input id="email" type="email" autoComplete="email" placeholder="name@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} />
             </Field>
             <Field htmlFor="password" label="Password" required>
               <Input id="password" type="password" minLength={6} required autoComplete={mode === "signin" ? "current-password" : "new-password"} value={password} onChange={(e) => setPassword(e.target.value)} />
             </Field>
             {error ? <Alert tone="warning">{error}</Alert> : null}
-            <Button type="submit" block loading={busy}>{mode === "signin" ? "Sign in" : "Sign up"}</Button>
+            <Button type="submit" block loading={busy}>{mode === "signin" ? "Sign in to Phrasebook" : "Create account"}</Button>
             <Button variant="ghost" onClick={() => setMode(mode === "signin" ? "signup" : "signin")}>
               {mode === "signin" ? "No account? Sign up" : "Have an account? Sign in"}
             </Button>

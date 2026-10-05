@@ -1,9 +1,8 @@
-import { Suspense, useEffect, useState, type ReactNode } from "react";
+import { Suspense, useState, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button, Container, Logo, Text, textLinkVariants, useTheme } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
 import { supabase } from "@/integrations/supabase/client";
-import { profileQuery } from "@/lib/queries";
 import { GearIcon, MoonIcon, SunIcon } from "./Icons";
 import { SettingsPanel } from "./SettingsPanel";
 
@@ -18,15 +17,10 @@ const NAV = [
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const { theme, toggleTheme, setTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const qc = useQueryClient();
   const navigate = useNavigate();
-  const { data: profile } = useQuery(profileQuery);
-
-  useEffect(() => {
-    if (profile) setTheme(resolveTheme(profile.theme));
-  }, [profile, setTheme]);
 
   async function signOut() {
     await qc.cancelQueries();
@@ -37,13 +31,13 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-border">
-        <Container className="flex h-16 items-center gap-4">
-          <Link to="/" aria-label="Home" className="flex items-center gap-2">
+      <header className="border-b border-border bg-background">
+        <Container className="grid min-h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-2 sm:flex">
+          <Link to="/" aria-label="Home" className="flex min-w-0 items-center gap-2">
             <Logo variant="symbol" size="sm" />
-            <Text as="span" weight="semibold">Phrasebook</Text>
+            <Text as="span" weight="semibold" className="truncate">Phrasebook</Text>
           </Link>
-          <nav aria-label="Main" className="flex items-center gap-4">
+          <nav aria-label="Main" className="order-3 col-span-2 flex items-center gap-4 sm:order-none sm:col-span-1">
             {NAV.map((n) => (
               <Link
                 key={n.to}
@@ -56,7 +50,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </Link>
             ))}
           </nav>
-          <div className="ml-auto flex items-center gap-1">
+          <div className="flex shrink-0 items-center gap-1 sm:ml-auto">
             <Button variant="ghost" size="sm" aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} onClick={toggleTheme}>
               {theme === "dark" ? <SunIcon /> : <MoonIcon />}
             </Button>
@@ -68,14 +62,14 @@ export function AppShell({ children }: { children: ReactNode }) {
         </Container>
       </header>
       {open ? (
-        <Container className="pt-6">
+        <Container width="narrow" className="pt-6">
           <Suspense fallback={<Text tone="muted">Loading settings…</Text>}>
             <SettingsPanel onClose={() => setOpen(false)} />
           </Suspense>
         </Container>
       ) : null}
       <main>
-        <Container className="py-8 md:py-12">{children}</Container>
+        <Container width="narrow" className="py-8 md:py-12">{children}</Container>
       </main>
     </div>
   );

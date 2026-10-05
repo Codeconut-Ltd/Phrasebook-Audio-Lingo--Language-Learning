@@ -67,9 +67,12 @@ function Review() {
 
   return (
     <AppShell>
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-wrap items-baseline justify-between gap-4">
-          <Heading level={1}>Review</Heading>
+      <div className={finished ? "flex flex-col gap-6 pb-24" : "flex flex-col gap-6"}>
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
+          <div className="min-w-0">
+            <Text size="small" tone="muted" weight="semibold">ACTIVE ROUND</Text>
+            <Heading level={1}>Review</Heading>
+          </div>
           <Text tone="muted">{done} / {phrases.length} answered</Text>
         </div>
         {error ? <Alert tone="danger">{error}</Alert> : null}
@@ -87,14 +90,18 @@ function Review() {
           </ol>
         )}
         {finished ? (
-          <Card variant="raised" padding="lg" aria-live="polite">
-            <Heading level={3}>Round complete</Heading>
-            <Text className="mt-2">You memorized {memorized} of {phrases.length}.</Text>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button variant="accent" onClick={() => navigate({ to: "/review", search: { n, seed: Date.now() } })}>Next round</Button>
-              <Link to="/" className={buttonVariants({ variant: "outline" })}>Back home</Link>
+          <div className="fixed inset-x-0 bottom-0 z-10 border-t border-border bg-background shadow-overlay" aria-live="polite">
+            <div className="mx-auto grid max-w-3xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-3 md:px-8">
+              <div className="min-w-0">
+                <Text weight="semibold">Round complete</Text>
+                <Text size="small" tone="muted">{memorized} of {phrases.length} memorized</Text>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <Link to="/" className={buttonVariants({ variant: "ghost", size: "sm" })}>Home</Link>
+                <Button variant="accent" size="sm" onClick={() => navigate({ to: "/review", search: { n, seed: Date.now() } })}>Next round</Button>
+              </div>
             </div>
-          </Card>
+          </div>
         ) : null}
       </div>
     </AppShell>

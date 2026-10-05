@@ -1,3 +1,23 @@
 @import "tailwindcss" source(none);
 @import "./design-system/codeconut-ltd-2019-2025-dx-42c1f0/styles/theme.css";
 @source "../src";
+
+/* App-owned accessibility corrections for the attached theme. */
+:root {
+  --color-accent-foreground: var(--color-cc-ink);
+}
+
+[data-theme="dark"] {
+  --color-secondary: var(--color-cc-sand);
+  --color-secondary-hover: var(--color-cc-warm-grey);
+  --color-secondary-foreground: var(--color-cc-ink);
+  --color-on-status: var(--color-cc-neutral-100);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0;
+  }
+}
