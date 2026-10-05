@@ -17,6 +17,7 @@ const roundQuery = (n: number, seed: number) =>
   queryOptions({ queryKey: ["round", n, seed], queryFn: () => getRound({ data: { n } }), staleTime: Infinity, gcTime: Infinity });
 
 export const Route = createFileRoute("/_authenticated/review")({
+  staticData: { sitemap: false },
   validateSearch: searchSchema,
   loaderDeps: ({ search }) => search,
   loader: ({ context, deps }) => context.queryClient.ensureQueryData(roundQuery(deps.n, deps.seed)),
@@ -93,7 +94,7 @@ function Review() {
           <div className="fixed inset-x-0 bottom-0 z-10 border-t border-border bg-background shadow-overlay" aria-live="polite">
             <div className="mx-auto grid max-w-3xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-3 md:px-8">
               <div className="min-w-0">
-                <Text weight="semibold">Round complete</Text>
+                <Heading level={2}>Round complete</Heading>
                 <Text size="small" tone="muted">{memorized} of {phrases.length} memorized</Text>
               </div>
               <div className="shrink-0">

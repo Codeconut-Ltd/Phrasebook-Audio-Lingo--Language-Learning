@@ -10,6 +10,7 @@ import { profileQuery, statsQuery } from "@/lib/queries";
 import { LANGUAGE_CODE_PATTERN } from "@/lib/languages";
 
 export const Route = createFileRoute("/_authenticated/")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Home — Phrasebook" },

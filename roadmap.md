@@ -11,3 +11,4 @@
 - [x] Fix screenshot-reported spacing, contrast, table wrapping, and completion bar issues
 - [x] Remove the Codeconut logo from all app screens
 - [x] Complete design-system font wiring and remove the unused Tailwind token export
+- [x] Fix failing SEO findings for heading structure, crawler rules, and sitemap discovery

@@ -18,6 +18,7 @@ const searchSchema = listSchema.extend({
 });
 
 export const Route = createFileRoute("/_authenticated/library")({
+  staticData: { sitemap: false },
   validateSearch: searchSchema,
   loader: ({ context }) => context.queryClient.ensureQueryData(statsQuery),
   head: () => ({
@@ -67,7 +68,8 @@ function Library() {
           </div>
           <Text tone="muted" aria-live="polite">{isFetching ? "Loading…" : `${total} phrases`}</Text>
         </div>
-        <div className="grid items-end gap-4 border-y border-border py-4 sm:grid-cols-2 lg:grid-cols-4">
+        <section aria-labelledby="library-filters" className="grid items-end gap-4 border-y border-border py-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Heading level={2} id="library-filters" className="sm:col-span-2 lg:col-span-4">Filters</Heading>
           <Field htmlFor="f-q" label="Search">
             <Input id="f-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Text or translation" />
           </Field>
@@ -99,25 +101,28 @@ function Library() {
               <Button variant="ghost" size="sm" onClick={resetFilters}><ResetIcon />Reset filters</Button>
             </div>
           ) : null}
-        </div>
+        </section>
         {isError ? <Text tone="accent">Could not load phrases.</Text> : null}
-        <Table aria-label="All phrases" className="min-w-max">
-          <TableHead>
-            <TableRow>
-              <TableHeaderCell><span className="sr-only">Play</span></TableHeaderCell>
-              <TableHeaderCell>Phrase</TableHeaderCell>
-              <TableHeaderCell>Translation</TableHeaderCell>
-              <TableHeaderCell className="whitespace-nowrap">Lang</TableHeaderCell>
-              <TableHeaderCell>Status</TableHeaderCell>
-              <TableHeaderCell>Correct</TableHeaderCell>
-              <TableHeaderCell><span className="sr-only">Actions</span></TableHeaderCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {(data?.rows ?? []).map((p) => <LibraryRow key={`${p.id}-${p.text}-${p.status}`} phrase={p} />)}
-          </TableBody>
-        </Table>
-        {data && data.rows.length === 0 ? <Text tone="muted">No phrases match.</Text> : null}
+        <section aria-labelledby="phrase-list" className="flex flex-col gap-4">
+          <Heading level={2} id="phrase-list">Phrase list</Heading>
+          <Table aria-label="All phrases" className="min-w-max">
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell><span className="sr-only">Play</span></TableHeaderCell>
+                <TableHeaderCell>Phrase</TableHeaderCell>
+                <TableHeaderCell>Translation</TableHeaderCell>
+                <TableHeaderCell className="whitespace-nowrap">Lang</TableHeaderCell>
+                <TableHeaderCell>Status</TableHeaderCell>
+                <TableHeaderCell>Correct</TableHeaderCell>
+                <TableHeaderCell><span className="sr-only">Actions</span></TableHeaderCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {(data?.rows ?? []).map((p) => <LibraryRow key={`${p.id}-${p.text}-${p.status}`} phrase={p} />)}
+            </TableBody>
+          </Table>
+          {data && data.rows.length === 0 ? <Text tone="muted">No phrases match.</Text> : null}
+        </section>
         <nav aria-label="Pagination" className="flex items-center justify-between gap-4">
           <Button variant="outline" size="sm" disabled={search.page <= 1} onClick={() => set({ page: search.page - 1 })}>Previous</Button>
           <Text size="small" tone="muted">Page {search.page} of {pages}</Text>
