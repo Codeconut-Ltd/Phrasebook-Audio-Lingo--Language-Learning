@@ -1,12 +1,3 @@
 @import "tailwindcss" source(none);
+@import "./design-system/codeconut-ltd-2019-2025-dx-42c1f0/styles/theme.css";
 @source "../src";
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: system-ui, -apple-system, sans-serif;
-}
