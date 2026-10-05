@@ -1,6 +1,6 @@
 # Phrasebook - Audio-based language learning
 
-![Teaser](teaser.png)
+[![Phrasebook](teaser.png)](https://phrasebook-audio-lingo.lovable.app)
 
 ---
 
@@ -44,3 +44,5 @@ Feel free to use it as it is :)
 ---
 
 _Please don't store sensitive data in an eventual account. No data is guaranteed to be persisted or saved over time. Features and availability might change at any time, without prior notice. Past data entries might be purged any time at own discretion._
+
+_Code by Lovable. Concept and text by human._
