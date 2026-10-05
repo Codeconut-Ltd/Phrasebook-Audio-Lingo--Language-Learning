@@ -1,0 +1,161 @@
+/*
+ * Codeconut Design System — canonical theme entry.
+ * Import this one file to receive the full theme (tokens + Tailwind mapping).
+ *
+ * Derived from the Codeconut Ltd. corporate identity manual (v1.2.1),
+ * web-relevant sections only: colours, typography, spacing, visual style.
+ */
+
+@theme {
+  /* ---------- Brand palette (raw CI colours) ---------- */
+  --color-cc-cold-grey: #e1e7ee; /* Bright cold grey */
+  --color-cc-warm-grey: #dbd5cd; /* Bright warm grey */
+  --color-cc-sand: #c7af87; /* Bright brown */
+  --color-cc-brown: #86715a; /* Medium brown */
+  --color-cc-slate: #4c4e56; /* Dark grey */
+  --color-cc-cocoa: #635242; /* Dark brown */
+  --color-cc-orange: #ff6c2f; /* Highlight / CTA */
+  --color-cc-paper: #fefdfc; /* Digital white */
+  --color-cc-ink: #222222; /* Digital black */
+
+  /* ---------- Neutral steps (25% progression, per CI) ---------- */
+  --color-cc-neutral-100: #ffffff;
+  --color-cc-neutral-200: #d9d9d9;
+  --color-cc-neutral-300: #a6a6a6;
+  --color-cc-neutral-400: #595959;
+  --color-cc-neutral-500: #222222;
+
+  /* ---------- Semantic tokens (light / day view) ---------- */
+  --color-background: var(--color-cc-paper);
+  --color-surface: #f6f3ef;
+  --color-surface-strong: var(--color-cc-warm-grey);
+  --color-foreground: var(--color-cc-ink);
+  --color-muted-foreground: var(--color-cc-slate);
+  --color-border: #e5e0d8;
+  --color-border-strong: var(--color-cc-warm-grey);
+
+  --color-primary: var(--color-cc-cocoa);
+  --color-primary-hover: #524437;
+  --color-primary-foreground: var(--color-cc-paper);
+
+  --color-secondary: var(--color-cc-sand);
+  --color-secondary-hover: #b89d70;
+  --color-secondary-foreground: var(--color-cc-ink);
+
+  --color-accent: var(--color-cc-orange);
+  --color-accent-hover: #e85c22;
+  --color-accent-foreground: var(--color-cc-paper);
+
+  --color-link: var(--color-cc-cocoa);
+  --color-link-hover: var(--color-cc-orange);
+
+  --color-info: #4c6a86;
+  --color-success: #4f7a4a;
+  --color-warning: #b8801f;
+  --color-danger: #b3423a;
+  --color-on-status: var(--color-cc-paper);
+
+  --color-focus-ring: var(--color-cc-orange);
+
+  /* ---------- Typography (Source family, per CI) ---------- */
+  --font-sans: "Source Sans 3", "Source Sans Pro", system-ui, sans-serif;
+  --font-serif: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+  --font-mono: "Source Code Pro", ui-monospace, monospace;
+
+  /* Scale ratio 1 : 1.250 — 13 / 16 / 20 / 25 / 32 / 40 */
+  --text-small: 0.8125rem;
+  --text-small--line-height: 1.25rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5rem;
+  --text-h4: 1rem;
+  --text-h4--line-height: 1.5rem;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 2rem;
+  --text-h3: 1.5625rem;
+  --text-h3--line-height: 2rem;
+  --text-h2: 2rem;
+  --text-h2--line-height: 2.5rem;
+  --text-h1: 2.5rem;
+  --text-h1--line-height: 3rem;
+
+  /* ---------- Spacing: 4pt base, 8pt baseline rhythm ---------- */
+  --spacing: 0.25rem;
+
+  /* ---------- Radii: rectangular, sleek visual style ---------- */
+  --radius-none: 0px;
+  --radius-xs: 1px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* ---------- Elevation: decent and calm ---------- */
+  --shadow-subtle: 0 1px 2px rgb(34 34 34 / 0.06);
+  --shadow-raised: 0 2px 8px rgb(34 34 34 / 0.08);
+  --shadow-overlay: 0 8px 32px rgb(34 34 34 / 0.16);
+
+  /* ---------- Layout: no infinite stretch ---------- */
+  --container-content: 72rem;
+}
+
+/* ---------- Dark / nightmode: dimmed, ~10% less saturation ---------- */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+[data-theme="dark"] {
+  --color-background: #1c1c1b;
+  --color-surface: #262523;
+  --color-surface-strong: #333230;
+  --color-foreground: var(--color-cc-cold-grey);
+  --color-muted-foreground: #a8a49c;
+  --color-border: #3b3a37;
+  --color-border-strong: #4c4e56;
+
+  --color-primary: var(--color-cc-sand);
+  --color-primary-hover: #d3bf9c;
+  --color-primary-foreground: #1c1c1b;
+
+  --color-secondary: #86715a;
+  --color-secondary-hover: #9a836a;
+  --color-secondary-foreground: var(--color-cc-cold-grey);
+
+  --color-accent: #e8663a;
+  --color-accent-hover: #f2754a;
+  --color-accent-foreground: #1c1c1b;
+
+  --color-link: var(--color-cc-sand);
+  --color-link-hover: #e8663a;
+
+  --color-info: #7fa0bd;
+  --color-success: #7fa878;
+  --color-warning: #d0a44f;
+  --color-danger: #c8574d;
+  --color-on-status: #1c1c1b;
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.5rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-cc-sand);
+    color: var(--color-cc-ink);
+  }
+}

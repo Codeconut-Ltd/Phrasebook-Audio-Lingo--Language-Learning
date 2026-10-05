@@ -1,0 +1,880 @@
+{
+  "meta": {
+    "name": "Codeconut Ltd. (DX)",
+    "package": "@ws-9svikdtcvpnuvcv3yhad/387983b8-cda7-4e32-bf56-055bc60edfa8",
+    "version": "1.0.0",
+    "framework": "react",
+    "css_framework": "tailwind",
+    "starter_template": "custom_design_system",
+    "theme_files": [
+      "src/styles/theme.css"
+    ],
+    "source_type": "local",
+    "source_manifest": {
+      "#enrichment": "f339dd5be0bae51c4c5e746033e129d863ff006ba9109208724d37e384b87dc5",
+      ".dsignore": "e8437305448aca7daec5beadcf09792d",
+      ".gitignore": "6059213806e442947666752f3db6bfdc",
+      ".lovable/meta.yaml": "86a17ac0d6b10fddfde4cdc325cb93a7",
+      ".lovable/sources.yaml": "807ce6b78387d8883c0a01d83fc87411",
+      ".lovable/system.md": "581ba0eb143b21b649e2106299514cf5",
+      "README.md": "d19675c449605f23c7cfa133c69b398b",
+      "bunfig.toml": "25f4c8696b22b0943db7191e0cdf7942",
+      "eslint.config.js": "07a67437fb1a45ab36d6de0145ff09de",
+      "lovable.toml": "9636c1bf32f9901bfba4eabb92981217",
+      "mockupPreviewPlugin.ts": "08be2d15337c9b4145cc506cdf63a04e",
+      "package.json": "8ed39b664243e9bf29330c89f1352295",
+      "public/favicon.png": "17f93c0dec6be664dcc2d9da6769b5e8",
+      "src/assets/logos/codeconut-symbol.png": "9def107e62cd459f83fa909fef2aec3c",
+      "src/assets/logos/codeconut-wordmark.svg": "3b09afe7eb0cc6b2382537654b9566f6",
+      "src/components/Alert.tsx": "25c3794d34fbb67b49e28f73a456461f",
+      "src/components/Badge.tsx": "57ba49acc250960fc349d77dc7c3fcba",
+      "src/components/Button.tsx": "e1aefe1460ec65be86cf990eb1e30b24",
+      "src/components/Card.tsx": "937cd86a6d80a52550f52c512bc9d489",
+      "src/components/Checkbox.tsx": "2e66b2c05698821ffac268070091eb81",
+      "src/components/Code.tsx": "f495af5ca638574f9b93684fd4b0f380",
+      "src/components/Container.tsx": "6b339d35d39c284d534351f01b2892c1",
+      "src/components/Divider.tsx": "c7694b50afd6b605443960b567a70f4c",
+      "src/components/Field.tsx": "9ab384c77e1adf178241788b730840b5",
+      "src/components/Heading.tsx": "d825ce9c33bf288e84d0aacf83d7a041",
+      "src/components/Input.tsx": "ec877b464c176a1c28660e5299be3661",
+      "src/components/Label.tsx": "45b46f8e4053e12ba57e31ce6e48541d",
+      "src/components/Logo.tsx": "678eab070d2a8125694c897f83575987",
+      "src/components/Radio.tsx": "d456449acd558aac3927300f434825c5",
+      "src/components/Select.tsx": "1dd16db62e05252612767ff41a5035e5",
+      "src/components/Table.tsx": "63acd6c61b777a28d459ae272e1c817d",
+      "src/components/Text.tsx": "698940dccece910a256106847993fe38",
+      "src/components/TextLink.tsx": "cb2931b295575fdcb0fefafbd19c3f16",
+      "src/components/Textarea.tsx": "0f7dce42bea57cfa742666c5b274c3ba",
+      "src/components/ThemeProvider.tsx": "cbfc8cf02364a3b0a76780057db92772",
+      "src/index.ts": "4d906298155c17ce0feb70fc3bcedcd0",
+      "src/lib/utils.ts": "53176bde4b744ac6c1fff0b8db2ae9b8",
+      "src/mockup-preview.d.ts": "38969839f35ce2966e32a9f01a5c09ea",
+      "src/routeTree.gen.ts": "6f67a8aebc2c09c9c5ed77ffc35e30e7",
+      "src/router.tsx": "8f905e713b0eba7fa8148b7995a708c9",
+      "src/routes/[__component].preview.$.tsx": "3a40af1fe37daff2e891175a6e6d4f99",
+      "src/routes/[__mockup].preview.$.tsx": "5d9f42470848aa60148f20f9580e240e",
+      "src/routes/__root.tsx": "01945de9c91c04c0e77acb5e8653ee58",
+      "src/routes/colors.tsx": "a156e1a79398a27b1ea9a43fbc8fe66a",
+      "src/routes/components.tsx": "f13bd806df397947c6737d274c22f885",
+      "src/routes/index.tsx": "2060d2b53d24d45991b1c30422fececb",
+      "src/routes/typography.tsx": "fcefa38896281975fcf0a5c9b058adb0",
+      "src/showcase/ShowcaseLayout.tsx": "ff9845dc8ab55e4cb5e9e5c8b2ad3552",
+      "src/styles.css": "be4206b16bac988def9d4441ee6099b7",
+      "src/styles/theme.css": "6e306ef41c81d43a11fbbc96d5f1d613",
+      "tsconfig.json": "994abf64c2b9f78b568879f80ed0170e",
+      "vite.config.ts": "e711a72f288026e770a3d2e905608785",
+      "wrangler.jsonc": "680b897d48e44bcc65fe437c29b38f3b"
+    },
+    "pipeline_version": 8
+  },
+  "tokens": {
+    "color": [
+      {
+        "name": "--color-cc-cold-grey",
+        "raw": "#e1e7ee",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-warm-grey",
+        "raw": "#dbd5cd",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-sand",
+        "raw": "#c7af87",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-brown",
+        "raw": "#86715a",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-slate",
+        "raw": "#4c4e56",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-cocoa",
+        "raw": "#635242",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-orange",
+        "raw": "#ff6c2f",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-paper",
+        "raw": "#fefdfc",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-ink",
+        "raw": "#222222",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-neutral-100",
+        "raw": "#ffffff",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-neutral-200",
+        "raw": "#d9d9d9",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-neutral-300",
+        "raw": "#a6a6a6",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-neutral-400",
+        "raw": "#595959",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-cc-neutral-500",
+        "raw": "#222222",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-surface",
+        "raw": "#f6f3ef",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-border",
+        "raw": "#e5e0d8",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-primary-hover",
+        "raw": "#524437",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-secondary-hover",
+        "raw": "#b89d70",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-accent-hover",
+        "raw": "#e85c22",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-info",
+        "raw": "#4c6a86",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-success",
+        "raw": "#4f7a4a",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-warning",
+        "raw": "#b8801f",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-danger",
+        "raw": "#b3423a",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-background",
+        "raw": "#1c1c1b",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-surface-strong",
+        "raw": "#333230",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-muted-foreground",
+        "raw": "#a8a49c",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-border-strong",
+        "raw": "#4c4e56",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-primary-foreground",
+        "raw": "#1c1c1b",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-secondary",
+        "raw": "#86715a",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-accent",
+        "raw": "#e8663a",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-accent-foreground",
+        "raw": "#1c1c1b",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-link-hover",
+        "raw": "#e8663a",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--color-on-status",
+        "raw": "#1c1c1b",
+        "source": "src/styles/theme.css"
+      }
+    ],
+    "spacing": [
+      {
+        "name": "--spacing",
+        "raw": "0.25rem",
+        "source": "src/styles/theme.css"
+      }
+    ],
+    "typography": [
+      {
+        "name": "--font-sans",
+        "raw": "\"Source Sans 3\", \"Source Sans Pro\", system-ui, sans-serif",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--font-serif",
+        "raw": "\"Source Serif 4\", \"Source Serif Pro\", Georgia, serif",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--font-mono",
+        "raw": "\"Source Code Pro\", ui-monospace, monospace",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-small",
+        "raw": "0.8125rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-small--line-height",
+        "raw": "1.25rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-body",
+        "raw": "1rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-body--line-height",
+        "raw": "1.5rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-h4",
+        "raw": "1rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-h4--line-height",
+        "raw": "1.5rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-lead",
+        "raw": "1.25rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-lead--line-height",
+        "raw": "2rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-h3",
+        "raw": "1.5625rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-h3--line-height",
+        "raw": "2rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-h2",
+        "raw": "2rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-h2--line-height",
+        "raw": "2.5rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-h1",
+        "raw": "2.5rem",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--text-h1--line-height",
+        "raw": "3rem",
+        "source": "src/styles/theme.css"
+      }
+    ],
+    "radius": [
+      {
+        "name": "--radius-none",
+        "raw": "0px",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--radius-xs",
+        "raw": "1px",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--radius-sm",
+        "raw": "2px",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--radius-md",
+        "raw": "4px",
+        "source": "src/styles/theme.css"
+      }
+    ],
+    "shadow": [
+      {
+        "name": "--shadow-subtle",
+        "raw": "0 1px 2px rgb(34 34 34 / 0.06)",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--shadow-raised",
+        "raw": "0 2px 8px rgb(34 34 34 / 0.08)",
+        "source": "src/styles/theme.css"
+      },
+      {
+        "name": "--shadow-overlay",
+        "raw": "0 8px 32px rgb(34 34 34 / 0.16)",
+        "source": "src/styles/theme.css"
+      }
+    ],
+    "other": [
+      {
+        "name": "--container-content",
+        "raw": "72rem",
+        "source": "src/styles/theme.css"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Alert",
+      "file": "src/components/Alert",
+      "import_path": "",
+      "props": [
+        {
+          "name": "tone",
+          "type": "enum",
+          "values": [
+            "info",
+            "success",
+            "warning",
+            "danger"
+          ],
+          "default": "info"
+        },
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "children",
+          "type": "any"
+        }
+      ]
+    },
+    {
+      "name": "Badge",
+      "file": "src/components/Badge",
+      "import_path": "",
+      "props": [
+        {
+          "name": "variant",
+          "type": "enum",
+          "values": [
+            "neutral",
+            "primary",
+            "accent",
+            "success",
+            "warning",
+            "danger",
+            "outline"
+          ],
+          "default": "neutral"
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "file": "src/components/Button",
+      "import_path": "",
+      "props": [
+        {
+          "name": "variant",
+          "type": "enum",
+          "values": [
+            "primary",
+            "secondary",
+            "accent",
+            "outline",
+            "ghost",
+            "danger"
+          ],
+          "default": "primary"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "block",
+          "type": "enum",
+          "values": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false"
+        }
+      ]
+    },
+    {
+      "name": "Card",
+      "file": "src/components/Card",
+      "import_path": "",
+      "props": [
+        {
+          "name": "variant",
+          "type": "enum",
+          "values": [
+            "outlined",
+            "raised",
+            "filled",
+            "quiet"
+          ],
+          "default": "outlined"
+        },
+        {
+          "name": "padding",
+          "type": "enum",
+          "values": [
+            "none",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        }
+      ]
+    },
+    {
+      "name": "CardContent",
+      "file": "src/components/Card",
+      "import_path": ""
+    },
+    {
+      "name": "CardDescription",
+      "file": "src/components/Card",
+      "import_path": ""
+    },
+    {
+      "name": "CardFooter",
+      "file": "src/components/Card",
+      "import_path": ""
+    },
+    {
+      "name": "CardHeader",
+      "file": "src/components/Card",
+      "import_path": ""
+    },
+    {
+      "name": "CardTitle",
+      "file": "src/components/Card",
+      "import_path": ""
+    },
+    {
+      "name": "Checkbox",
+      "file": "src/components/Checkbox",
+      "import_path": "",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Code",
+      "file": "src/components/Code",
+      "import_path": "",
+      "props": [
+        {
+          "name": "block",
+          "type": "boolean",
+          "default": "false"
+        }
+      ]
+    },
+    {
+      "name": "Container",
+      "file": "src/components/Container",
+      "import_path": "",
+      "props": [
+        {
+          "name": "width",
+          "type": "enum",
+          "values": [
+            "narrow",
+            "content",
+            "wide"
+          ],
+          "default": "content"
+        }
+      ]
+    },
+    {
+      "name": "Divider",
+      "file": "src/components/Divider",
+      "import_path": "",
+      "props": [
+        {
+          "name": "orientation",
+          "type": "enum",
+          "values": [
+            "horizontal",
+            "vertical"
+          ],
+          "default": "horizontal"
+        }
+      ]
+    },
+    {
+      "name": "Field",
+      "file": "src/components/Field",
+      "import_path": "",
+      "props": [
+        {
+          "name": "htmlFor",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "hint",
+          "type": "string"
+        },
+        {
+          "name": "error",
+          "type": "string"
+        },
+        {
+          "name": "required",
+          "type": "boolean"
+        },
+        {
+          "name": "children",
+          "type": "any",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Heading",
+      "file": "src/components/Heading",
+      "import_path": "",
+      "props": [
+        {
+          "name": "level",
+          "type": "enum",
+          "values": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "default": "2"
+        },
+        {
+          "name": "tone",
+          "type": "enum",
+          "values": [
+            "default",
+            "muted",
+            "accent"
+          ],
+          "default": "default"
+        }
+      ]
+    },
+    {
+      "name": "Input",
+      "file": "src/components/Input",
+      "import_path": ""
+    },
+    {
+      "name": "Label",
+      "file": "src/components/Label",
+      "import_path": "",
+      "props": [
+        {
+          "name": "required",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "Logo",
+      "file": "src/components/Logo",
+      "import_path": "",
+      "props": [
+        {
+          "name": "size",
+          "type": "enum",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "values": [
+            "symbol",
+            "wordmark"
+          ],
+          "default": "wordmark"
+        }
+      ]
+    },
+    {
+      "name": "Radio",
+      "file": "src/components/Radio",
+      "import_path": "",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Select",
+      "file": "src/components/Select",
+      "import_path": "",
+      "props": [
+        {
+          "name": "size",
+          "type": "enum",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        {
+          "name": "invalid",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "Table",
+      "file": "src/components/Table",
+      "import_path": "",
+      "props": [
+        {
+          "name": "dense",
+          "type": "boolean",
+          "default": "false"
+        }
+      ]
+    },
+    {
+      "name": "TableBody",
+      "file": "src/components/Table",
+      "import_path": ""
+    },
+    {
+      "name": "TableCell",
+      "file": "src/components/Table",
+      "import_path": ""
+    },
+    {
+      "name": "TableHead",
+      "file": "src/components/Table",
+      "import_path": ""
+    },
+    {
+      "name": "TableHeaderCell",
+      "file": "src/components/Table",
+      "import_path": ""
+    },
+    {
+      "name": "TableRow",
+      "file": "src/components/Table",
+      "import_path": ""
+    },
+    {
+      "name": "Text",
+      "file": "src/components/Text",
+      "import_path": "",
+      "props": [
+        {
+          "name": "size",
+          "type": "enum",
+          "values": [
+            "small",
+            "body",
+            "lead"
+          ],
+          "default": "body"
+        },
+        {
+          "name": "tone",
+          "type": "enum",
+          "values": [
+            "default",
+            "muted",
+            "accent"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "weight",
+          "type": "enum",
+          "values": [
+            "regular",
+            "semibold"
+          ],
+          "default": "regular"
+        },
+        {
+          "name": "as",
+          "type": "enum",
+          "values": [
+            "p",
+            "span",
+            "div"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Textarea",
+      "file": "src/components/Textarea",
+      "import_path": "",
+      "props": [
+        {
+          "name": "invalid",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "TextLink",
+      "file": "src/components/TextLink",
+      "import_path": "",
+      "props": [
+        {
+          "name": "variant",
+          "type": "enum",
+          "values": [
+            "inline",
+            "standalone",
+            "quiet"
+          ],
+          "default": "inline"
+        },
+        {
+          "name": "external",
+          "type": "boolean",
+          "default": "false"
+        }
+      ]
+    },
+    {
+      "name": "ThemeProvider",
+      "file": "src/components/ThemeProvider",
+      "import_path": "",
+      "props": [
+        {
+          "name": "children",
+          "type": "any",
+          "required": true
+        },
+        {
+          "name": "defaultTheme",
+          "type": "enum",
+          "values": [
+            "light",
+            "dark"
+          ],
+          "default": "light"
+        },
+        {
+          "name": "storageKey",
+          "type": "string",
+          "default": "codeconut-theme"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "file": "src/assets/logos/codeconut-symbol.png",
+      "kind": "logo",
+      "format": "png"
+    },
+    {
+      "file": "src/assets/logos/codeconut-wordmark.svg",
+      "kind": "logo",
+      "format": "svg"
+    }
+  ]
+}
