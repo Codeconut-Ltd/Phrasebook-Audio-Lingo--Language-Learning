@@ -42,7 +42,7 @@ export function LibraryRow({ phrase }: { phrase: Phrase }) {
       <TableCell>
         <Input aria-label="Translation" value={translation} placeholder="—" onChange={(e) => setTranslation(e.target.value)} />
       </TableCell>
-      <TableCell><Badge variant="outline">{phrase.language_code}</Badge></TableCell>
+      <TableCell><Badge variant="outline" className="whitespace-nowrap">{phrase.language_code}</Badge></TableCell>
       <TableCell>
         <Button variant="ghost" size="sm" onClick={toggleStatus} aria-label={`Status ${status}, toggle`}>
           <Badge variant={status === "learned" ? "success" : "warning"}>{status === "learned" ? "Learned" : "Learning"}</Badge>

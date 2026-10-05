@@ -3,7 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { queryOptions, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { Alert, Button, Card, Heading, Text, buttonVariants } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Alert, Button, Card, Heading, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
 import { AppShell } from "@/components/AppShell";
 import { ReviewCard } from "@/components/ReviewCard";
 import { getRound, markResult } from "@/lib/phrases.functions";
@@ -96,8 +96,7 @@ function Review() {
                 <Text weight="semibold">Round complete</Text>
                 <Text size="small" tone="muted">{memorized} of {phrases.length} memorized</Text>
               </div>
-              <div className="flex shrink-0 items-center gap-2">
-                <Link to="/" className={buttonVariants({ variant: "ghost", size: "sm" })}>Home</Link>
+              <div className="shrink-0">
                 <Button variant="accent" size="sm" onClick={() => navigate({ to: "/review", search: { n, seed: Date.now() } })}>Next round</Button>
               </div>
             </div>

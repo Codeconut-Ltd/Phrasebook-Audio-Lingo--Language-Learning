@@ -1,7 +1,7 @@
 import { Suspense, useState, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { Button, Container, Logo, Text, textLinkVariants, useTheme } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Button, Container, Text, textLinkVariants, useTheme } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
 import { supabase } from "@/integrations/supabase/client";
 import { GearIcon, MoonIcon, SunIcon } from "./Icons";
 import { SettingsPanel } from "./SettingsPanel";
@@ -16,7 +16,12 @@ const NAV = [
   { to: "/library", label: "Library" },
 ] as const;
 
-export function AppShell({ children }: { children: ReactNode }) {
+type AppShellProps = {
+  children: ReactNode;
+  width?: "narrow" | "content" | "wide";
+};
+
+export function AppShell({ children, width = "narrow" }: AppShellProps) {
   const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const qc = useQueryClient();
@@ -34,7 +39,6 @@ export function AppShell({ children }: { children: ReactNode }) {
       <header className="border-b border-border bg-background">
         <Container className="grid min-h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-2 sm:flex">
           <Link to="/" aria-label="Home" className="flex min-w-0 items-center gap-2">
-            <Logo variant="symbol" size="sm" />
             <Text as="span" weight="semibold" className="truncate">Phrasebook</Text>
           </Link>
           <nav aria-label="Main" className="order-3 col-span-2 flex items-center gap-4 sm:order-none sm:col-span-1">
@@ -69,7 +73,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </Container>
       ) : null}
       <main>
-        <Container width="narrow" className="py-8 md:py-12">{children}</Container>
+        <Container width={width} className="py-8 md:py-12">{children}</Container>
       </main>
     </div>
   );

@@ -62,7 +62,7 @@ function Home() {
   const roundN = Math.min(20, Math.max(1, Number(n) || profile.round_size));
 
   return (
-    <AppShell>
+    <AppShell width="content">
       <div className="flex flex-col gap-12">
         <section aria-labelledby="add-h" className="flex flex-col gap-4">
           <Text size="small" tone="muted" weight="semibold">YOUR WORKSPACE</Text>
@@ -106,8 +106,8 @@ function Home() {
           </form>
         </section>
 
-        <div className="border-y border-border bg-surface py-6">
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <div className="border-y border-border bg-surface">
+          <div className="flex flex-col gap-8 px-4 py-6 md:flex-row md:items-end md:justify-between md:px-8">
             <div className="flex gap-10">
               <Stat value={stats.learned} label="Learned" />
               <Stat value={stats.learning} label="Learning" />
