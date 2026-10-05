@@ -8,3 +8,4 @@
 - UI uses only the attached Codeconut design system components and tokens.
 - Theme choice is local-first and shared across routes; profile updates may change it, but page mounts must never overwrite the saved browser choice.
 - Page navigation uses TanStack Router's native View Transition integration for fast, progressively enhanced transitions.
+- `AppShell` owns route-level content width selection — workspace pages can expand without weakening narrow review and settings flows.

@@ -21,6 +21,14 @@ button:disabled:disabled {
   opacity: 1;
 }
 
+button.bg-primary {
+  color: var(--color-cc-paper);
+}
+
+[data-theme="dark"] button.bg-primary {
+  color: var(--color-cc-ink);
+}
+
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),
   ::view-transition-old(*),
