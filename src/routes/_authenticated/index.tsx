@@ -22,7 +22,7 @@ export const Route = createFileRoute("/_authenticated/")({
   }),
   loader: ({ context }) =>
     Promise.all([context.queryClient.ensureQueryData(profileQuery), context.queryClient.ensureQueryData(statsQuery)]),
-  errorComponent: ({ error }) => <Text>Something went wrong: {error.message}</Text>,
+  errorComponent: ({ error }) => <Text>Something went wrong: {error instanceof Error ? error.message : "Unknown error"}</Text>,
   notFoundComponent: () => <Text>Not found</Text>,
   component: Home,
 });

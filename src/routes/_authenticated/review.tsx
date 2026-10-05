@@ -30,7 +30,7 @@ export const Route = createFileRoute("/_authenticated/review")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  errorComponent: ({ error }) => <Text>Could not load round: {error.message}</Text>,
+  errorComponent: ({ error }) => <Text>Could not load round: {error instanceof Error ? error.message : "Unknown error"}</Text>,
   notFoundComponent: () => <Text>Not found</Text>,
   component: Review,
 });

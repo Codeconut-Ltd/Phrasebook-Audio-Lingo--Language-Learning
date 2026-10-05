@@ -29,7 +29,7 @@ export const Route = createFileRoute("/_authenticated/library")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  errorComponent: ({ error }) => <Text>Could not load library: {error.message}</Text>,
+  errorComponent: ({ error }) => <Text>Could not load library: {error instanceof Error ? error.message : "Unknown error"}</Text>,
   notFoundComponent: () => <Text>Not found</Text>,
   component: Library,
 });

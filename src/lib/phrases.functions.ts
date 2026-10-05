@@ -115,7 +115,7 @@ export const updatePhrase = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { id, ...patch } = data;
-    const update: Record<string, unknown> = { ...patch };
+    const update: { text?: string; language_code?: string; translation?: string | null; status?: "learning" | "learned"; audio_path?: null } = { ...patch };
     if (patch.translation !== undefined) update.translation = patch.translation || null;
     if (patch.text !== undefined || patch.language_code !== undefined) update.audio_path = null;
     const { error } = await context.supabase.from("phrases").update(update).eq("id", id);
