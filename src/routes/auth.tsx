@@ -4,6 +4,7 @@ import { Alert, Button, Card, CardDescription, Container, Field, Heading, Input,
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/auth")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Sign in — Phrasebook" },

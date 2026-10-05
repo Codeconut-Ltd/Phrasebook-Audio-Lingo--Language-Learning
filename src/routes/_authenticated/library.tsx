@@ -18,6 +18,7 @@ const searchSchema = listSchema.extend({
 });
 
 export const Route = createFileRoute("/_authenticated/library")({
+  staticData: { sitemap: false },
   validateSearch: searchSchema,
   loader: ({ context }) => context.queryClient.ensureQueryData(statsQuery),
   head: () => ({

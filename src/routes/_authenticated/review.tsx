@@ -17,6 +17,7 @@ const roundQuery = (n: number, seed: number) =>
   queryOptions({ queryKey: ["round", n, seed], queryFn: () => getRound({ data: { n } }), staleTime: Infinity, gcTime: Infinity });
 
 export const Route = createFileRoute("/_authenticated/review")({
+  staticData: { sitemap: false },
   validateSearch: searchSchema,
   loaderDeps: ({ search }) => search,
   loader: ({ context, deps }) => context.queryClient.ensureQueryData(roundQuery(deps.n, deps.seed)),
