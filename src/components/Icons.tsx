@@ -1,5 +1,5 @@
 /** Minimal inline icons (stroke = currentColor). */
-const base = { width: 20, height: 20, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true } as const;
+const base = { className: "size-5", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true } as const;
 
 export const PlayIcon = () => (
   <svg {...base}><polygon points="6 4 20 12 6 20 6 4" /></svg>
