@@ -59,7 +59,7 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
           </Select>
         </Field>
         <div className="flex items-center gap-3 sm:col-span-2">
-          <Button type="submit" loading={mutation.isPending} disabled={!langValid || !roundValid}>Save</Button>
+          <Button type="submit" loading={mutation.isPending} disabled={!roundValid}>Save</Button>
           <Button variant="ghost" onClick={onClose}>Cancel</Button>
           {saved ? <Text size="small" tone="muted" aria-live="polite">Settings saved.</Text> : null}
           {mutation.isError ? <Text size="small" tone="accent">Could not save settings.</Text> : null}
