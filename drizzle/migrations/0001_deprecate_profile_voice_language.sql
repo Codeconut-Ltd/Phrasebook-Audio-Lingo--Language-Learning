@@ -1,0 +1,2 @@
+COMMENT ON COLUMN public.profiles.voice IS 'DEPRECATED: ElevenLabs voice is fixed server-side; language comes from each phrase.';
+COMMENT ON COLUMN public.profiles.output_language IS 'DEPRECATED: home remembers last used language locally.';
