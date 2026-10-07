@@ -23,7 +23,7 @@ Private audio-first language-learning app. User stores phrases in any language, 
 Sign in + signup, email/password. Authed → home. Compact centered card; Phrasebook wordmark text only; Codeconut logo never appears.
 
 ### Home — `/`
-Phrase entry: text + valid language code required; translation optional, manual. Enter submits, Shift+Enter newline. Defaults to profile output language. Shows Learned/Learning/Total. Round size 1–20 → start review. Content-width layout: breathing room, no excess side gaps.
+Phrase entry: text + valid language code required; translation optional, manual. Enter submits, Shift+Enter newline. Defaults to last used language (local). Shows Learned/Learning/Total. Round size 1–20 → start review. Content-width layout: breathing room, no excess side gaps.
 
 ### Review — `/review`
 Vertical list of large cards (requested count). Each: text, language, optional translation, playback, in-place editing, **Memorized** / **Not yet**. Autosave after typing stops + concise saved state. One phrase plays at a time. Finished round: compact fixed bottom bar, result + single action **Next round**; no Home there; bottom clearance so bar never covers last card.
@@ -32,7 +32,7 @@ Vertical list of large cards (requested count). Each: text, language, optional t
 All owned phrases, sortable paginated table, 25/page, newest first. Search text, filter status + language, sort. Row: playback, inline edit, status change, delete. Visible **Reset filters** when search/filters/sort differ from defaults. Language badges + compact labels never wrap. Narrow screens: horizontal scroll keeps columns readable. Wide layout, no excess side gaps.
 
 ### Settings
-Opens from header, stays in current screen. Output language, round size, voice, theme. Save keeps panel open + confirms in place. Close/cancel always explicit.
+Opens from header, stays in current screen. Round size, theme. Save keeps panel open + confirms in place. Close/cancel always explicit.
 
 ## Review Logic
 No SRS. Backend `pick_round` DB function selects: least learning success first, Learning ahead of Learned, random within equal priority. Round size integer 1–20. Marking updates status, review count, correct count, last-reviewed. **Memorized** → Learned, +1 review +1 correct. **Not yet** → Learning, +1 review only. **Next round** = fresh randomized round.
@@ -42,10 +42,10 @@ One owner per phrase: id, owner id, text, BCP-47 code, optional translation, sta
 Input: text trim/required ≤2000; translation trim/optional ≤2000; code ≤35 chars matching project BCP-47 pattern; search terms = data, escaped before DB filtering.
 
 ## Profile Data
-One per user: optional display name, output language, round size, voice, theme `light`|`dark`|`system`. Missing → create with backend defaults.
+One per user: optional display name, round size, theme `light`|`dark`|`system`. Missing → create with backend defaults.
 
 ## Audio
-Server-side TTS via ElevenLabs connector; never browser-side with private key. Cache in private `phrase-audio` bucket; key = text + code + voice + TTS model. Short-lived signed URLs. Editing text or language invalidates cached reference. Replace: delete old object only after replacement succeeds. `speechSynthesis` fallback. Shared `AudioPlayerProvider` owns playback, one phrase at a time. Errors concise/actionable; never expose provider responses or credentials.
+Server-side TTS via ElevenLabs connector (eleven_v3, phrase language_code sent, fixed voice — no user voice choice); never browser-side with private key. Cache in private `phrase-audio` bucket; key = text + code + voice + TTS model. Short-lived signed URLs. Editing text or language invalidates cached reference. Replace: delete old object only after replacement succeeds. `speechSynthesis` fallback. Shared `AudioPlayerProvider` owns playback, one phrase at a time. Errors concise/actionable; never expose provider responses or credentials.
 
 ## Data and Security Architecture
 Lovable Cloud: auth, PostgreSQL, RLS, private storage. All data access via authenticated TanStack Start server functions in `src/lib/phrases.functions.ts`; each user-data fn uses `requireSupabaseAuth` + Zod. Request-context client so RLS applies as signed-in user; every phrase query/mutation owner-scoped. No DB calls in UI. No privileged clients for ordinary reads/writes/role checks/audio. No public endpoints for profiles, phrases, review history, audio. Schema changes via migrations with constraints, indexes, grants, explicit RLS policies. Never edit generated Cloud integration files.

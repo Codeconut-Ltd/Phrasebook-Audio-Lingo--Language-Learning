@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { DEFAULT_VOICE_ID, LANGUAGE_CODE_PATTERN, VOICE_IDS } from "./languages";
+import { LANGUAGE_CODE_PATTERN, ttsLanguage } from "./languages";
 
 const langSchema = z.string().trim().regex(LANGUAGE_CODE_PATTERN).max(35);
 const textSchema = z.string().trim().min(1).max(2000);
@@ -27,9 +27,7 @@ const PHRASE_COLUMNS =
 export type Profile = {
   id: string;
   display_name: string | null;
-  output_language: string;
   round_size: number;
-  voice: string;
   theme: string;
 };
 
@@ -37,7 +35,7 @@ export const getProfile = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }): Promise<Profile> => {
     const { supabase, userId } = context;
-    const cols = "id, display_name, output_language, round_size, voice, theme";
+    const cols = "id, display_name, round_size, theme";
     const { data, error } = await supabase.from("profiles").select(cols).eq("id", userId).maybeSingle();
     if (error) throw new Error(error.message);
     if (data) return data;
@@ -55,9 +53,7 @@ export const updateProfile = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) =>
     z
       .object({
-        output_language: langSchema.optional(),
         round_size: z.number().int().min(1).max(20).optional(),
-        voice: z.enum(VOICE_IDS).optional(),
         theme: z.enum(["light", "dark", "system"]).optional(),
       })
       .parse(d),
@@ -213,26 +209,27 @@ async function sha1(input: string): Promise<string> {
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 16);
 }
 
-const TTS_MODEL = "eleven_multilingual_v2";
+const TTS_MODEL = "eleven_v3";
+/** One fixed multilingual voice; language comes from each phrase. */
+const TTS_VOICE_ID = "EXAVITQu4vr4xnSDxMaL";
 
 /** Returns a signed URL to cached speech audio for a phrase; synthesizes once per text/voice. */
 export const speak = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
-  .handler(async ({ data, context }): Promise<{ url: string } | { error: string }> => {
+  .handler(async ({ data, context }): Promise<{ url: string } | { fallback: true; reason: string }> => {
     const { supabase, userId } = context;
-    const [{ data: phrase, error }, { data: profile }] = await Promise.all([
-      supabase.from("phrases").select("id, text, language_code, audio_path").eq("id", data.id).single(),
-      supabase.from("profiles").select("voice").eq("id", userId).maybeSingle(),
-    ]);
-    if (error) return { error: "Phrase not found" };
-    const voice = profile?.voice && VOICE_IDS.includes(profile.voice) ? profile.voice : DEFAULT_VOICE_ID;
+    const { data: phrase, error } = await supabase
+      .from("phrases").select("id, text, language_code, audio_path").eq("id", data.id).single();
+    if (error) throw new Error("Phrase not found");
+    const voice = TTS_VOICE_ID;
+    const fallback = (reason: string) => ({ fallback: true as const, reason });
     const hash = await sha1(`${phrase.text}|${phrase.language_code}|${voice}|${TTS_MODEL}`);
     const path = `${userId}/${phrase.id}-${hash}.mp3`;
 
     if (phrase.audio_path !== path) {
       const apiKey = process.env["ELEVENLABS_API_KEY"];
-      if (!apiKey) return { error: "Speech is not configured" };
+      if (!apiKey) return fallback("ElevenLabs not configured");
       const res = await fetch(
         `https://api.elevenlabs.io/v1/text-to-speech/${voice}?output_format=mp3_44100_128`,
         {
@@ -241,6 +238,7 @@ export const speak = createServerFn({ method: "POST" })
           body: JSON.stringify({
             text: phrase.text,
             model_id: TTS_MODEL,
+            language_code: ttsLanguage(phrase.language_code),
             voice_settings: { stability: 0.5, similarity_boost: 0.75, use_speaker_boost: true },
           }),
         },
@@ -248,19 +246,17 @@ export const speak = createServerFn({ method: "POST" })
       if (!res.ok) {
         const body = await res.text();
         console.error(`TTS failed [${res.status}]: ${body}`);
-        if (res.status === 401) return { error: "Speech is not configured" };
-        if (res.status === 429) return { error: "Too many requests, try again shortly" };
-        return { error: `Speech failed (${res.status})` };
+        return fallback(res.status === 429 ? "ElevenLabs busy" : "ElevenLabs unavailable");
       }
       const audio = await res.arrayBuffer();
       const { error: upErr } = await supabase.storage
         .from("phrase-audio")
         .upload(path, audio, { contentType: "audio/mpeg", upsert: true });
-      if (upErr) return { error: upErr.message };
+      if (upErr) return fallback("Audio cache unavailable");
       if (phrase.audio_path) await supabase.storage.from("phrase-audio").remove([phrase.audio_path]);
       await supabase.from("phrases").update({ audio_path: path }).eq("id", phrase.id);
     }
     const { data: signed, error: sErr } = await supabase.storage.from("phrase-audio").createSignedUrl(path, 3600);
-    if (sErr || !signed) return { error: sErr?.message ?? "Could not load audio" };
+    if (sErr || !signed) return fallback("Audio cache unavailable");
     return { url: signed.signedUrl };
   });
