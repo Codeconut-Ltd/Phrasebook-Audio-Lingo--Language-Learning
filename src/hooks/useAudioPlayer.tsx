@@ -2,7 +2,13 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 import { useServerFn } from "@tanstack/react-start";
 import { speak } from "@/lib/phrases.functions";
 
-type PlayerState = { activeId: string | null; loadingId: string | null; error: string | null };
+type PlayerState = {
+  activeId: string | null;
+  loadingId: string | null;
+  error: string | null;
+  /** Which engine is playing activeId: ElevenLabs audio or the device voice fallback. */
+  engine: "elevenlabs" | "device" | null;
+};
 type PlayerApi = PlayerState & {
   toggle: (p: { id: string; text: string; language_code: string }) => void;
   stop: () => void;
@@ -15,7 +21,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   const speakFn = useServerFn(speak);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const reqRef = useRef(0);
-  const [state, setState] = useState<PlayerState>({ activeId: null, loadingId: null, error: null });
+  const [state, setState] = useState<PlayerState>({ activeId: null, loadingId: null, error: null, engine: null });
 
   const stop = useCallback(() => {
     reqRef.current++;
@@ -33,7 +39,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     u.lang = lang;
     u.onend = () => setState((s) => (s.activeId === id ? { ...s, activeId: null } : s));
     window.speechSynthesis.speak(u);
-    setState({ activeId: id, loadingId: null, error: null });
+    setState({ activeId: id, loadingId: null, error: null, engine: "device" });
     return true;
   }, []);
 
@@ -42,13 +48,13 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       if (state.activeId === p.id || state.loadingId === p.id) return stop();
       stop();
       const req = ++reqRef.current;
-      setState({ activeId: null, loadingId: p.id, error: null });
+      setState({ activeId: null, loadingId: p.id, error: null, engine: null });
       speakFn({ data: { id: p.id } })
         .then((res) => {
           if (req !== reqRef.current) return;
-          if ("error" in res) {
+          if ("fallback" in res) {
             if (!fallback(p.id, p.text, p.language_code))
-              setState({ activeId: null, loadingId: null, error: res.error });
+              setState({ activeId: null, loadingId: null, error: "Audio unavailable", engine: null });
             return;
           }
           const audio = new Audio(res.url);
@@ -56,13 +62,13 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
           audio.onended = () => setState((s) => ({ ...s, activeId: null }));
           audio
             .play()
-            .then(() => setState({ activeId: p.id, loadingId: null, error: null }))
-            .catch(() => setState({ activeId: null, loadingId: null, error: "Playback blocked" }));
+            .then(() => setState({ activeId: p.id, loadingId: null, error: null, engine: "elevenlabs" }))
+            .catch(() => setState({ activeId: null, loadingId: null, error: "Playback blocked", engine: null }));
         })
         .catch(() => {
           if (req !== reqRef.current) return;
           if (!fallback(p.id, p.text, p.language_code))
-            setState({ activeId: null, loadingId: null, error: "Speech failed" });
+            setState({ activeId: null, loadingId: null, error: "Speech failed", engine: null });
         });
     },
     [state.activeId, state.loadingId, stop, speakFn, fallback],

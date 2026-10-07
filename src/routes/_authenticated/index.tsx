@@ -7,7 +7,9 @@ import { AppShell } from "@/components/AppShell";
 import { LanguageInput } from "@/components/LanguageInput";
 import { addPhrase } from "@/lib/phrases.functions";
 import { profileQuery, statsQuery } from "@/lib/queries";
-import { LANGUAGE_CODE_PATTERN } from "@/lib/languages";
+import { DEFAULT_LANGUAGE, LANGUAGE_CODE_PATTERN } from "@/lib/languages";
+
+const LAST_LANG_KEY = "phrasebook:last-language";
 
 export const Route = createFileRoute("/_authenticated/")({
   staticData: { sitemap: false },
@@ -44,15 +46,19 @@ function Home() {
   const navigate = useNavigate();
   const add = useServerFn(addPhrase);
   const [text, setText] = useState("");
-  const [lang, setLang] = useState(profile.output_language);
+  const [lang, setLang] = useState(DEFAULT_LANGUAGE);
   const [translation, setTranslation] = useState("");
   const [n, setN] = useState(String(profile.round_size));
-  useEffect(() => setLang(profile.output_language), [profile.output_language]);
+  useEffect(() => {
+    const saved = window.localStorage.getItem(LAST_LANG_KEY);
+    if (saved && LANGUAGE_CODE_PATTERN.test(saved)) setLang(saved);
+  }, []);
 
   const langValid = LANGUAGE_CODE_PATTERN.test(lang.trim());
   const mutation = useMutation({
     mutationFn: () => add({ data: { text: text.trim(), language_code: lang.trim(), translation: translation.trim() || null } }),
     onSuccess: () => {
+      window.localStorage.setItem(LAST_LANG_KEY, lang.trim());
       setText("");
       setTranslation("");
       qc.invalidateQueries({ queryKey: ["stats"] });
