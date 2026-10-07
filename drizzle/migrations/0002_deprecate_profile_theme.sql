@@ -1,0 +1,1 @@
+COMMENT ON COLUMN public.profiles.theme IS 'DEPRECATED: theme is local-first in the browser; no longer set from Settings';
