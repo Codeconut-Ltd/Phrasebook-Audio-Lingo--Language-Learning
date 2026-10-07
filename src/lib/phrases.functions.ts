@@ -51,12 +51,7 @@ export const getProfile = createServerFn({ method: "GET" })
 export const updateProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) =>
-    z
-      .object({
-        round_size: z.number().int().min(1).max(20).optional(),
-        theme: z.enum(["light", "dark", "system"]).optional(),
-      })
-      .parse(d),
+    z.object({ round_size: z.number().int().min(1).max(20).optional() }).parse(d),
   )
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("profiles").update(data).eq("id", context.userId);
@@ -110,12 +105,22 @@ export const updatePhrase = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ data, context }) => {
+    const { supabase } = context;
     const { id, ...patch } = data;
     const update: { text?: string; language_code?: string; translation?: string | null; status?: "learning" | "learned"; audio_path?: null } = { ...patch };
     if (patch.translation !== undefined) update.translation = patch.translation || null;
-    if (patch.text !== undefined || patch.language_code !== undefined) update.audio_path = null;
-    const { error } = await context.supabase.from("phrases").update(update).eq("id", id);
+    let oldAudio: string | null = null;
+    if (patch.text !== undefined || patch.language_code !== undefined) {
+      const { data: cur } = await supabase.from("phrases").select("text, language_code, audio_path").eq("id", id).single();
+      const changed = cur && ((patch.text !== undefined && patch.text !== cur.text) || (patch.language_code !== undefined && patch.language_code !== cur.language_code));
+      if (changed) {
+        update.audio_path = null;
+        oldAudio = cur.audio_path;
+      }
+    }
+    const { error } = await supabase.from("phrases").update(update).eq("id", id);
     if (error) throw new Error(error.message);
+    if (oldAudio) await supabase.storage.from("phrase-audio").remove([oldAudio]);
     return { ok: true };
   });
 
@@ -123,8 +128,11 @@ export const deletePhrase = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
-    const { error } = await context.supabase.from("phrases").delete().eq("id", data.id);
+    const { supabase } = context;
+    const { data: cur } = await supabase.from("phrases").select("audio_path").eq("id", data.id).maybeSingle();
+    const { error } = await supabase.from("phrases").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
+    if (cur?.audio_path) await supabase.storage.from("phrase-audio").remove([cur.audio_path]);
     return { ok: true };
   });
 

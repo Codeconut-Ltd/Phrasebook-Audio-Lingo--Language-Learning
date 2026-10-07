@@ -66,11 +66,13 @@ export function AppShell({ children, width = "narrow" }: AppShellProps) {
         </Container>
       </header>
       {open ? (
-        <Container width="narrow" className="pt-6">
-          <Suspense fallback={<Text tone="muted">Loading settings…</Text>}>
-            <SettingsPanel onClose={() => setOpen(false)} />
-          </Suspense>
-        </Container>
+        <div className="border-b border-border">
+          <Container width={width} className="py-8">
+            <Suspense fallback={<Text tone="muted">Loading settings…</Text>}>
+              <SettingsPanel onClose={() => setOpen(false)} />
+            </Suspense>
+          </Container>
+        </div>
       ) : null}
       <main>
         <Container width={width} className="py-8 md:py-12">{children}</Container>
