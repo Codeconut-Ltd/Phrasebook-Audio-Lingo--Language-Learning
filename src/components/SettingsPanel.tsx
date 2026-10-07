@@ -28,7 +28,7 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
         data: {
           output_language: lang.trim(),
           round_size: roundNum,
-          voice: voice as (typeof VOICES)[number],
+          voice: voice as (typeof VOICES)[number]["id"],
           theme: theme as "light" | "dark" | "system",
         },
       }),
@@ -64,7 +64,7 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
         <Field htmlFor="set-voice" label="Voice">
           <Select id="set-voice" value={voice} onChange={(e) => setVoice(e.target.value)}>
             {VOICES.map((v) => (
-              <option key={v} value={v}>{v}</option>
+              <option key={v.id} value={v.id}>{v.name}</option>
             ))}
           </Select>
         </Field>

@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { LANGUAGE_CODE_PATTERN, VOICES } from "./languages";
+import { DEFAULT_VOICE_ID, LANGUAGE_CODE_PATTERN, VOICE_IDS } from "./languages";
 
 const langSchema = z.string().trim().regex(LANGUAGE_CODE_PATTERN).max(35);
 const textSchema = z.string().trim().min(1).max(2000);
@@ -57,7 +57,7 @@ export const updateProfile = createServerFn({ method: "POST" })
       .object({
         output_language: langSchema.optional(),
         round_size: z.number().int().min(1).max(20).optional(),
-        voice: z.enum(VOICES).optional(),
+        voice: z.enum(VOICE_IDS).optional(),
         theme: z.enum(["light", "dark", "system"]).optional(),
       })
       .parse(d),
@@ -213,8 +213,7 @@ async function sha1(input: string): Promise<string> {
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 16);
 }
 
-const TTS_MODEL = "google/gemini-3.1-flash-tts-preview";
-const GATEWAY = "https://ai.gateway.lovable.dev";
+const TTS_MODEL = "eleven_multilingual_v2";
 
 /** Returns a signed URL to cached speech audio for a phrase; synthesizes once per text/voice. */
 export const speak = createServerFn({ method: "POST" })
@@ -227,37 +226,36 @@ export const speak = createServerFn({ method: "POST" })
       supabase.from("profiles").select("voice").eq("id", userId).maybeSingle(),
     ]);
     if (error) return { error: "Phrase not found" };
-    const voice = profile?.voice ?? "Kore";
+    const voice = profile?.voice && VOICE_IDS.includes(profile.voice) ? profile.voice : DEFAULT_VOICE_ID;
     const hash = await sha1(`${phrase.text}|${phrase.language_code}|${voice}|${TTS_MODEL}`);
-    const path = `${userId}/${phrase.id}-${hash}.wav`;
+    const path = `${userId}/${phrase.id}-${hash}.mp3`;
 
     if (phrase.audio_path !== path) {
-      const apiKey = process.env["LOVABLE_API_KEY"];
+      const apiKey = process.env["ELEVENLABS_API_KEY"];
       if (!apiKey) return { error: "Speech is not configured" };
-      const res = await fetch(`${GATEWAY}/v1/audio/speech`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: TTS_MODEL,
-          contents: [{ role: "user", parts: [{ text: phrase.text }] }],
-          generationConfig: {
-            responseModalities: ["AUDIO"],
-            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } },
-          },
-          stream_format: "audio",
-        }),
-      });
+      const res = await fetch(
+        `https://api.elevenlabs.io/v1/text-to-speech/${voice}?output_format=mp3_44100_128`,
+        {
+          method: "POST",
+          headers: { "xi-api-key": apiKey, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: phrase.text,
+            model_id: TTS_MODEL,
+            voice_settings: { stability: 0.5, similarity_boost: 0.75, use_speaker_boost: true },
+          }),
+        },
+      );
       if (!res.ok) {
         const body = await res.text();
         console.error(`TTS failed [${res.status}]: ${body}`);
-        if (res.status === 402) return { error: "AI credits exhausted" };
+        if (res.status === 401) return { error: "Speech is not configured" };
         if (res.status === 429) return { error: "Too many requests, try again shortly" };
         return { error: `Speech failed (${res.status})` };
       }
       const audio = await res.arrayBuffer();
       const { error: upErr } = await supabase.storage
         .from("phrase-audio")
-        .upload(path, audio, { contentType: "audio/wav", upsert: true });
+        .upload(path, audio, { contentType: "audio/mpeg", upsert: true });
       if (upErr) return { error: upErr.message };
       if (phrase.audio_path) await supabase.storage.from("phrase-audio").remove([phrase.audio_path]);
       await supabase.from("phrases").update({ audio_path: path }).eq("id", phrase.id);

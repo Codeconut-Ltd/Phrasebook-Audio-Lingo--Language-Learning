@@ -21,7 +21,17 @@ export const LANGUAGES: ReadonlyArray<{ readonly code: string; readonly name: st
   { code: "id-ID", name: "Indonesian" },
 ];
 
-export const VOICES = ["Kore", "Puck", "Charon", "Aoede", "Fenrir", "Leda"] as const;
+/** ElevenLabs prebuilt voices. */
+export const VOICES = [
+  { id: "EXAVITQu4vr4xnSDxMaL", name: "Sarah" },
+  { id: "JBFqnCBsd6RMkjVDRZzb", name: "George" },
+  { id: "cgSgspJ2msm6clMCkdW9", name: "Jessica" },
+  { id: "onwK4e9ZLuTAKqWW03F9", name: "Daniel" },
+  { id: "pFZP5JQG7iQjIQuC4Bku", name: "Lily" },
+  { id: "nPczCjzI2devNBz1zQrb", name: "Brian" },
+] as const;
+export const VOICE_IDS = VOICES.map((v) => v.id) as [string, ...string[]];
+export const DEFAULT_VOICE_ID = VOICES[0].id;
 
 export const LANGUAGE_CODE_PATTERN = /^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$/;
 
