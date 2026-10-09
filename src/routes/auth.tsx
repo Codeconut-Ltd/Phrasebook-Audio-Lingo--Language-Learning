@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Alert, Button, Card, CardDescription, Container, Field, Heading, Input, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Alert, Button, Card, CardDescription, Container, Divider, Field, Heading, Input, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable/index";
+
+type Provider = "google" | "apple" | "microsoft";
+const PROVIDERS: { id: Provider; label: string }[] = [
+  { id: "google", label: "Google" },
+  { id: "apple", label: "Apple" },
+  { id: "microsoft", label: "Microsoft" },
+];
 
 export const Route = createFileRoute("/auth")({
   staticData: { sitemap: true },
@@ -27,6 +35,20 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [oauthBusy, setOauthBusy] = useState<Provider | null>(null);
+
+  async function social(provider: Provider) {
+    setOauthBusy(provider);
+    setError(null);
+    const result = await lovable.auth.signInWithOAuth(provider, { redirect_uri: window.location.origin });
+    if (result.error) {
+      setOauthBusy(null);
+      setError("Sign-in was cancelled or failed. Please try again.");
+      return;
+    }
+    if (result.redirected) return;
+    navigate({ to: "/", replace: true });
+  }
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -56,6 +78,18 @@ function AuthPage() {
             <Text as="span" size="lead" weight="semibold">Phrasebook</Text>
             <Heading level={1} className="mt-6">{mode === "signin" ? "Welcome back" : "Create your account"}</Heading>
             <CardDescription className="mt-2">Learn phrases by ear, in any language.</CardDescription>
+          </div>
+          <div className="mt-6 flex flex-col gap-2">
+            {PROVIDERS.map((p) => (
+              <Button key={p.id} variant="secondary" block loading={oauthBusy === p.id} disabled={oauthBusy !== null} onClick={() => social(p.id)}>
+                Continue with {p.label}
+              </Button>
+            ))}
+          </div>
+          <div className="mt-6 flex items-center gap-4">
+            <Divider className="flex-1" />
+            <Text as="span" size="small" tone="muted">or with email</Text>
+            <Divider className="flex-1" />
           </div>
           <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
             <Field htmlFor="email" label="Email address" required>
