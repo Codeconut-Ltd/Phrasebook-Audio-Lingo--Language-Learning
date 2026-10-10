@@ -5,7 +5,7 @@
 
 # Design Tokens
 
-Token reference for **Codeconut Ltd. (DX)**. Use utility classes and CSS variables — never raw values.
+Token reference for **Codeconut Ltd. 2019-2025 (DX)**. Use utility classes and CSS variables — never raw values.
 
 ## Colors
 

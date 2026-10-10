@@ -1,8 +1,8 @@
 {
   "meta": {
-    "name": "Codeconut Ltd. (DX)",
+    "name": "Codeconut Ltd. 2019-2025 (DX)",
     "package": "@ws-9svikdtcvpnuvcv3yhad/387983b8-cda7-4e32-bf56-055bc60edfa8",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "framework": "react",
     "css_framework": "tailwind",
     "starter_template": "custom_design_system",
@@ -14,7 +14,7 @@
       "#enrichment": "f339dd5be0bae51c4c5e746033e129d863ff006ba9109208724d37e384b87dc5",
       ".dsignore": "e8437305448aca7daec5beadcf09792d",
       ".gitignore": "6059213806e442947666752f3db6bfdc",
-      ".lovable/meta.yaml": "86a17ac0d6b10fddfde4cdc325cb93a7",
+      ".lovable/meta.yaml": "8794970d6049858cc148d2b86f7a2b22",
       ".lovable/sources.yaml": "807ce6b78387d8883c0a01d83fc87411",
       ".lovable/system.md": "581ba0eb143b21b649e2106299514cf5",
       "README.md": "d19675c449605f23c7cfa133c69b398b",

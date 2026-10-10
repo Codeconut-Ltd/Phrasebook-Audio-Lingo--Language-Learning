@@ -5,7 +5,7 @@
 
 # Components
 
-Component catalog for **Codeconut Ltd. (DX)**. Import all components from `@/design-system/codeconut-ltd-2019-2025-dx-42c1f0`.
+Component catalog for **Codeconut Ltd. 2019-2025 (DX)**. Import all components from `@/design-system/codeconut-ltd-2019-2025-dx-42c1f0`.
 
 ### Alert
 
