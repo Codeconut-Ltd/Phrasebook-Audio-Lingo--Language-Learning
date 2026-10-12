@@ -33,7 +33,7 @@ export const Route = createFileRoute("/_authenticated/")({
 function Stat({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col">
-      <span className="font-serif text-h1 font-bold text-foreground">{value}</span>
+      <span className="font-sans text-h1 font-extrabold text-primary">{value}</span>
       <Text size="small" tone="muted">{label}</Text>
     </div>
   );
@@ -113,7 +113,7 @@ function Home() {
           </form>
         </section>
 
-        <div className="border-y border-border bg-surface">
+        <div className="rounded-card border-2 border-border bg-surface">
           <div className="flex flex-col gap-8 px-4 py-6 md:flex-row md:items-end md:justify-between md:px-8">
             <div className="flex gap-10">
               <Stat value={stats.learned} label="Learned" />

@@ -75,7 +75,7 @@ function AuthPage() {
       <Container width="narrow">
         <Card variant="raised" padding="lg" className="mx-auto max-w-md bg-background">
           <div className="flex flex-col items-center text-center">
-            <Text as="span" size="lead" weight="semibold">Phrasebook</Text>
+            <Text as="span" size="lead" weight="semibold" className="text-primary">Phrasebook</Text>
             <Heading level={1} className="mt-6">{mode === "signin" ? "Welcome back" : "Create your account"}</Heading>
             <CardDescription className="mt-2">Learn phrases by ear, in any language.</CardDescription>
           </div>

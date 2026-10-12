@@ -25,7 +25,7 @@ export function ReviewCard({ phrase, index, result, onResult }: Props) {
   const state = textState === "idle" ? trState : textState;
 
   return (
-    <Card variant={result === undefined ? "outlined" : "filled"} padding="md">
+    <Card variant={result === undefined ? "outlined" : "filled"} padding="md" className="transition-[background-color,border-color] duration-150">
       <div className="flex items-center gap-2">
         <Text as="span" size="small" tone="muted">{index + 1}</Text>
         <Badge variant="outline">{languageName(phrase.language_code)}</Badge>
