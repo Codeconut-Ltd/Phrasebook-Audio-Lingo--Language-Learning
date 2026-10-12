@@ -49,7 +49,7 @@ export function AppShell({ children, width = "narrow" }: AppShellProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-border bg-background">
+      <header className="relative z-40 border-b border-border bg-background">
         <Container className="grid min-h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-2 sm:flex">
           <Link to="/" aria-label="Home" className="flex min-w-0 items-center gap-2 rounded-md text-primary">
             <Text as="span" size="lead" weight="semibold" className="truncate">Phrasebook</Text>
@@ -77,16 +77,16 @@ export function AppShell({ children, width = "narrow" }: AppShellProps) {
             <Button variant="ghost" size="sm" onClick={signOut}>Sign out</Button>
           </div>
         </Container>
+        {open ? (
+          <div className="absolute inset-x-0 top-full z-50 border-b border-border bg-background shadow-overlay">
+            <Container width={width} className="max-h-[calc(100vh-4rem)] overflow-y-auto py-6 md:py-8">
+              <Suspense fallback={<Text tone="muted">Loading settings…</Text>}>
+                <SettingsPanel onClose={() => setOpen(false)} />
+              </Suspense>
+            </Container>
+          </div>
+        ) : null}
       </header>
-      {open ? (
-        <div className="border-b border-border">
-          <Container width={width} className="py-8">
-            <Suspense fallback={<Text tone="muted">Loading settings…</Text>}>
-              <SettingsPanel onClose={() => setOpen(false)} />
-            </Suspense>
-          </Container>
-        </div>
-      ) : null}
       <main>
         <Container width={width} className="py-8 md:py-12">{children}</Container>
       </main>

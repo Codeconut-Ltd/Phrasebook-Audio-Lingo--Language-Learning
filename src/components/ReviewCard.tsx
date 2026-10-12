@@ -23,9 +23,10 @@ export function ReviewCard({ phrase, index, result, onResult }: Props) {
   const textState = useAutosave(text, (v) => (v.trim() ? save({ data: { id: phrase.id, text: v } }) : Promise.reject()));
   const trState = useAutosave(translation, (v) => save({ data: { id: phrase.id, translation: v || null } }));
   const state = textState === "idle" ? trState : textState;
+  const cardVariant = result === true ? "filled" : result === false ? "warning" : "outlined";
 
   return (
-    <Card variant={result === undefined ? "outlined" : "filled"} padding="md" className="transition-[background-color,border-color] duration-150">
+    <Card variant={cardVariant} padding="md" className="transition-[background-color,border-color] duration-150">
       <div className="flex items-center gap-2">
         <Text as="span" size="small" tone="muted">{index + 1}</Text>
         <Badge variant="outline">{languageName(phrase.language_code)}</Badge>
@@ -62,7 +63,7 @@ export function ReviewCard({ phrase, index, result, onResult }: Props) {
       </div>
       <div className="mt-6 flex flex-wrap gap-3">
         <Button variant={result === true ? "primary" : "outline"} onClick={() => onResult(true)}>Memorized</Button>
-        <Button variant={result === false ? "secondary" : "outline"} onClick={() => onResult(false)}>Not yet</Button>
+        <Button variant={result === false ? "warning" : "outline"} onClick={() => onResult(false)}>Not yet</Button>
       </div>
     </Card>
   );

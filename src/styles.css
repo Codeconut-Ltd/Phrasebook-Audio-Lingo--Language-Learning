@@ -31,9 +31,11 @@
   --link-hover: oklch(0.36 0.12 235);
   --info: oklch(0.55 0.12 235);
   --warning: oklch(0.62 0.13 80);
+  --warning-hover: oklch(0.57 0.13 78);
   --warning-edge: oklch(0.49 0.11 75);
   --warning-soft: oklch(0.93 0.075 84);
   --warning-foreground: oklch(0.33 0.09 72);
+  --warning-foreground-strong: oklch(0.2 0.055 68);
   --danger: oklch(0.53 0.19 25);
   --danger-hover: oklch(0.47 0.18 25);
   --danger-edge: oklch(0.4 0.16 25);
@@ -75,9 +77,11 @@
   --link-hover: oklch(0.84 0.09 235);
   --info: oklch(0.72 0.1 235);
   --warning: oklch(0.76 0.13 82);
+  --warning-hover: oklch(0.81 0.12 84);
   --warning-edge: oklch(0.58 0.11 78);
   --warning-soft: oklch(0.32 0.07 72);
   --warning-foreground: oklch(0.9 0.12 85);
+  --warning-foreground-strong: oklch(0.18 0.045 68);
   --danger: oklch(0.65 0.18 25);
   --danger-hover: oklch(0.7 0.17 25);
   --danger-edge: oklch(0.51 0.16 25);
@@ -119,9 +123,11 @@
   --color-link-hover: var(--link-hover);
   --color-info: var(--info);
   --color-warning: var(--warning);
+  --color-warning-hover: var(--warning-hover);
   --color-warning-edge: var(--warning-edge);
   --color-warning-soft: var(--warning-soft);
   --color-warning-foreground: var(--warning-foreground);
+  --color-warning-foreground-strong: var(--warning-foreground-strong);
   --color-danger: var(--danger);
   --color-danger-hover: var(--danger-hover);
   --color-danger-edge: var(--danger-edge);
