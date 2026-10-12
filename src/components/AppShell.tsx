@@ -1,7 +1,7 @@
-import { Suspense, useState, type ReactNode } from "react";
+import { Suspense, useEffect, useState, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { Button, Container, Text, textLinkVariants, useTheme } from "@/design-system/phrasebook";
+import { Button, Container, Text, textLinkVariants } from "@/design-system/phrasebook";
 import { supabase } from "@/integrations/supabase/client";
 import { GearIcon, MoonIcon, SunIcon } from "./Icons";
 import { SettingsPanel } from "./SettingsPanel";
@@ -22,10 +22,23 @@ type AppShellProps = {
 };
 
 export function AppShell({ children, width = "narrow" }: AppShellProps) {
-  const { theme, toggleTheme } = useTheme();
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return "light";
+    const stored = window.localStorage.getItem("phrasebook-theme") ?? window.localStorage.getItem("codeconut-theme");
+    return stored === "light" || stored === "dark" ? stored : resolveTheme("system");
+  });
   const [open, setOpen] = useState(false);
   const qc = useQueryClient();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    window.localStorage.setItem("phrasebook-theme", theme);
+  }, [theme]);
+
+  function toggleTheme() {
+    setTheme((current) => current === "dark" ? "light" : "dark");
+  }
 
   async function signOut() {
     await qc.cancelQueries();
