@@ -9,6 +9,7 @@ export const buttonVariants = cva("inline-flex min-w-0 items-center justify-cent
   primary: "border-primary-edge bg-primary text-primary-foreground shadow-button hover:bg-primary-hover disabled:border-disabled disabled:bg-disabled disabled:text-disabled-foreground disabled:shadow-none",
   secondary: "border-secondary-edge bg-secondary text-secondary-foreground shadow-button hover:bg-secondary-hover disabled:border-disabled disabled:bg-disabled disabled:text-disabled-foreground disabled:shadow-none",
   accent: "border-accent-edge bg-accent text-accent-foreground shadow-button hover:bg-accent-hover disabled:border-disabled disabled:bg-disabled disabled:text-disabled-foreground disabled:shadow-none",
+  warning: "border-warning-edge bg-warning text-warning-foreground-strong shadow-button hover:bg-warning-hover disabled:border-disabled disabled:bg-disabled disabled:text-disabled-foreground disabled:shadow-none",
   outline: "border-border-strong bg-background text-foreground shadow-button hover:border-accent hover:bg-accent-soft disabled:border-disabled disabled:text-disabled-foreground disabled:shadow-none",
   ghost: "border-transparent bg-transparent text-foreground shadow-none hover:bg-surface-strong disabled:text-disabled-foreground",
   danger: "border-danger-edge bg-danger text-on-status shadow-button hover:bg-danger-hover disabled:border-disabled disabled:bg-disabled disabled:text-disabled-foreground disabled:shadow-none",
@@ -20,7 +21,7 @@ export const badgeVariants = cva("inline-flex items-center gap-1 whitespace-nowr
 export interface BadgeProps extends ComponentProps<"span">, VariantProps<typeof badgeVariants> {}
 export function Badge({ className, variant, ...props }: BadgeProps) { return <span className={cn(badgeVariants({ variant }), className)} {...props} />; }
 
-export const cardVariants = cva("rounded-card bg-background", { variants: { variant: { outlined: "border-2 border-border", raised: "border-2 border-border shadow-card", filled: "border-2 border-primary-soft bg-primary-soft", quiet: "" }, padding: { none: "", sm: "p-4", md: "p-5 md:p-6", lg: "p-6 md:p-8" } }, defaultVariants: { variant: "outlined", padding: "md" } });
+export const cardVariants = cva("rounded-card bg-background", { variants: { variant: { outlined: "border-2 border-border", raised: "border-2 border-border shadow-card", filled: "border-2 border-primary-edge bg-primary-soft", warning: "border-2 border-warning-edge bg-warning-soft", quiet: "" }, padding: { none: "", sm: "p-4", md: "p-5 md:p-6", lg: "p-6 md:p-8" } }, defaultVariants: { variant: "outlined", padding: "md" } });
 export interface CardProps extends ComponentProps<"div">, VariantProps<typeof cardVariants> {}
 export function Card({ className, variant, padding, ...props }: CardProps) { return <div className={cn(cardVariants({ variant, padding }), className)} {...props} />; }
 export function CardHeader({ className, ...props }: ComponentProps<"div">) { return <div className={cn("flex flex-col gap-1", className)} {...props} />; }
