@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Alert, Button, Card, CardDescription, Container, Divider, Field, Heading, Input, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Alert, Button, Card, CardDescription, Container, Divider, Field, Heading, Input, Text } from "@/design-system/phrasebook";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 

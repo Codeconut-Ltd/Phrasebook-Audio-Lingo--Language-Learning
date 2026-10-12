@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { keepPreviousData, useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import { Button, Field, Heading, Input, Select, Table, TableBody, TableHead, TableHeaderCell, TableRow, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Button, Field, Heading, Input, Select, Table, TableBody, TableHead, TableHeaderCell, TableRow, Text } from "@/design-system/phrasebook";
 import { AppShell } from "@/components/AppShell";
 import { LibraryRow } from "@/components/LibraryRow";
 import { listSchema, PAGE_SIZE } from "@/lib/phrases.functions";

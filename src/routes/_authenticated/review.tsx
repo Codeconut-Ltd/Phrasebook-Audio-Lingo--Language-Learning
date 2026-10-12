@@ -3,7 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { queryOptions, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { Alert, Button, Card, Heading, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Alert, Button, Card, Heading, Text } from "@/design-system/phrasebook";
 import { AppShell } from "@/components/AppShell";
 import { ReviewCard } from "@/components/ReviewCard";
 import { getRound, markResult } from "@/lib/phrases.functions";

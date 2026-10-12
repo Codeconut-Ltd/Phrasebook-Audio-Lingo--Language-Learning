@@ -1,4 +1,4 @@
-import { Button, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Button, Text } from "@/design-system/phrasebook";
 import { useAudioPlayer } from "@/hooks/useAudioPlayer";
 import { PlayIcon, StopIcon } from "./Icons";
 

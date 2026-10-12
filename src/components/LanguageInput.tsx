@@ -1,4 +1,4 @@
-import { Input } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Input } from "@/design-system/phrasebook";
 import { LANGUAGES } from "@/lib/languages";
 
 type Props = { id: string; value: string; onChange: (v: string) => void; size?: "sm" | "md" | "lg"; "aria-label"?: string };
