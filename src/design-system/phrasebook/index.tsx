@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
-export const buttonVariants = cva("inline-flex min-w-0 items-center justify-center gap-2 rounded-control border-2 font-sans font-extrabold transition-[background-color,border-color,color,transform,box-shadow] duration-150 active:translate-y-px disabled:pointer-events-none disabled:cursor-not-allowed", { variants: { variant: {
+export const buttonVariants = cva("inline-flex min-w-0 items-center justify-center gap-2 rounded-control border-2 font-sans font-extrabold transition-[background-color,border-color,color,transform,box-shadow] duration-150 active:translate-y-px disabled:pointer-events-none disabled:cursor-not-allowed", { variants: { size: { sm: "h-10 px-3 text-small", md: "h-12 px-5 text-body", lg: "h-14 px-6 text-lead" }, variant: {
   primary: "border-primary-edge bg-primary text-primary-foreground shadow-button hover:bg-primary-hover disabled:border-disabled disabled:bg-disabled disabled:text-disabled-foreground disabled:shadow-none",
   secondary: "border-secondary-edge bg-secondary text-secondary-foreground shadow-button hover:bg-secondary-hover disabled:border-disabled disabled:bg-disabled disabled:text-disabled-foreground disabled:shadow-none",
   accent: "border-accent-edge bg-accent text-accent-foreground shadow-button hover:bg-accent-hover disabled:border-disabled disabled:bg-disabled disabled:text-disabled-foreground disabled:shadow-none",
@@ -13,7 +13,7 @@ export const buttonVariants = cva("inline-flex min-w-0 items-center justify-cent
   outline: "border-border-strong bg-background text-foreground shadow-button hover:border-accent hover:bg-accent-soft disabled:border-disabled disabled:text-disabled-foreground disabled:shadow-none",
   ghost: "border-transparent bg-transparent text-foreground shadow-none hover:bg-surface-strong disabled:text-disabled-foreground",
   danger: "border-danger-edge bg-danger text-on-status shadow-button hover:bg-danger-hover disabled:border-disabled disabled:bg-disabled disabled:text-disabled-foreground disabled:shadow-none",
-}, size: { sm: "h-10 px-3 text-small", md: "h-12 px-5 text-body", lg: "h-14 px-6 text-lead" }, block: { true: "w-full", false: "" } }, defaultVariants: { variant: "primary", size: "md", block: false } });
+}, block: { true: "w-full", false: "" } }, defaultVariants: { variant: "primary", size: "md", block: false } });
 export interface ButtonProps extends ComponentProps<"button">, VariantProps<typeof buttonVariants> { loading?: boolean }
 export function Button({ className, variant, size, block, loading = false, disabled, children, ...props }: ButtonProps) { return <button type="button" aria-busy={loading || undefined} disabled={disabled || loading} className={cn(buttonVariants({ variant, size, block }), className)} {...props}>{loading ? <span aria-hidden="true" className="size-5 animate-spin rounded-full border-2 border-current border-t-transparent" /> : null}{children}</button>; }
 
