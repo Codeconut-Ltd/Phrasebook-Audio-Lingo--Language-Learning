@@ -7,7 +7,7 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { ThemeProvider } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { ThemeProvider } from "@/design-system/phrasebook";
 import { supabase } from "@/integrations/supabase/client";
 
 import appCss from "../styles.css?url";
@@ -30,7 +30,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@400;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Noto+Sans+Thai:wght@400;600;700&display=swap",
       },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
@@ -59,7 +59,7 @@ function RootComponent() {
   const router = useRouter();
   const [initialTheme] = useState<"light" | "dark">(() => {
     if (typeof window === "undefined") return "light";
-    const stored = window.localStorage.getItem("codeconut-theme");
+    const stored = window.localStorage.getItem("phrasebook-theme") ?? window.localStorage.getItem("codeconut-theme");
     if (stored === "light" || stored === "dark") return stored;
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   });

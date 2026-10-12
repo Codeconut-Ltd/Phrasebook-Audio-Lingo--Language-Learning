@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Badge, Button, Input, TableCell, TableRow, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Badge, Button, Input, TableCell, TableRow, Text } from "@/design-system/phrasebook";
 import { deletePhrase, updatePhrase, type Phrase } from "@/lib/phrases.functions";
 import { useAutosave } from "@/hooks/useAutosave";
 import { PlayButton } from "./PlayButton";

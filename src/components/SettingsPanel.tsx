@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Button, Field, Heading, Input, Text } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Button, Field, Heading, Input, Text } from "@/design-system/phrasebook";
 import { profileQuery } from "@/lib/queries";
 import { updateProfile } from "@/lib/phrases.functions";
 

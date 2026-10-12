@@ -1,7 +1,7 @@
-import { Suspense, useState, type ReactNode } from "react";
+import { Suspense, useEffect, useState, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { Button, Container, Text, textLinkVariants, useTheme } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Button, Container, Text, textLinkVariants } from "@/design-system/phrasebook";
 import { supabase } from "@/integrations/supabase/client";
 import { GearIcon, MoonIcon, SunIcon } from "./Icons";
 import { SettingsPanel } from "./SettingsPanel";
@@ -22,10 +22,23 @@ type AppShellProps = {
 };
 
 export function AppShell({ children, width = "narrow" }: AppShellProps) {
-  const { theme, toggleTheme } = useTheme();
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return "light";
+    const stored = window.localStorage.getItem("phrasebook-theme") ?? window.localStorage.getItem("codeconut-theme");
+    return stored === "light" || stored === "dark" ? stored : resolveTheme("system");
+  });
   const [open, setOpen] = useState(false);
   const qc = useQueryClient();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    window.localStorage.setItem("phrasebook-theme", theme);
+  }, [theme]);
+
+  function toggleTheme() {
+    setTheme((current) => current === "dark" ? "light" : "dark");
+  }
 
   async function signOut() {
     await qc.cancelQueries();
@@ -38,8 +51,8 @@ export function AppShell({ children, width = "narrow" }: AppShellProps) {
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border bg-background">
         <Container className="grid min-h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-2 sm:flex">
-          <Link to="/" aria-label="Home" className="flex min-w-0 items-center gap-2">
-            <Text as="span" weight="semibold" className="truncate">Phrasebook</Text>
+          <Link to="/" aria-label="Home" className="flex min-w-0 items-center gap-2 rounded-md text-primary">
+            <Text as="span" size="lead" weight="semibold" className="truncate">Phrasebook</Text>
           </Link>
           <nav aria-label="Main" className="order-3 col-span-2 flex items-center gap-4 sm:order-none sm:col-span-1">
             {NAV.map((n) => (
@@ -47,7 +60,7 @@ export function AppShell({ children, width = "narrow" }: AppShellProps) {
                 key={n.to}
                 to={n.to}
                 className={textLinkVariants({ variant: "quiet" })}
-                activeProps={{ className: textLinkVariants({ variant: "standalone" }) }}
+                activeProps={{ className: `${textLinkVariants({ variant: "standalone" })} underline decoration-2 underline-offset-8` }}
                 activeOptions={{ exact: true }}
               >
                 {n.label}

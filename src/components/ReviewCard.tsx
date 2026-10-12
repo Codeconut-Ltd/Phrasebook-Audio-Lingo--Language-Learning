@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Badge, Button, Card, Text, Textarea } from "@/design-system/codeconut-ltd-2019-2025-dx-42c1f0";
+import { Badge, Button, Card, Text, Textarea } from "@/design-system/phrasebook";
 import { updatePhrase, type Phrase } from "@/lib/phrases.functions";
 import { languageName } from "@/lib/languages";
 import { useAutosave, type SaveState } from "@/hooks/useAutosave";
@@ -25,7 +25,7 @@ export function ReviewCard({ phrase, index, result, onResult }: Props) {
   const state = textState === "idle" ? trState : textState;
 
   return (
-    <Card variant={result === undefined ? "outlined" : "filled"} padding="md">
+    <Card variant={result === undefined ? "outlined" : "filled"} padding="md" className="transition-[background-color,border-color] duration-150">
       <div className="flex items-center gap-2">
         <Text as="span" size="small" tone="muted">{index + 1}</Text>
         <Badge variant="outline">{languageName(phrase.language_code)}</Badge>
