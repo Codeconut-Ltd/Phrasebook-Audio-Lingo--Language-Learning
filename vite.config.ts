@@ -17,6 +17,9 @@ export default defineConfig(({ command, mode }) => {
     server: {
       host: "::",
       port: 8080,
+      fs: {
+        allow: [path.resolve(__dirname), "/persist/node_modules"],
+      },
     },
     resolve: {
       alias: {

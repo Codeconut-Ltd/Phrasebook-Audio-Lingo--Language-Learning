@@ -10,3 +10,4 @@
 - Page navigation uses TanStack Router's native View Transition integration for fast, progressively enhanced transitions.
 - `AppShell` owns route-level content width selection — workspace pages can expand without weakening narrow review and settings flows.
 - Cached audio is deleted from storage when a phrase's text/language changes or the phrase is deleted; new audio is generated only on Play.
+- Vite dev serving explicitly allows `/persist/node_modules` — TanStack Start's generated client entry resolves there in the hosted preview.
